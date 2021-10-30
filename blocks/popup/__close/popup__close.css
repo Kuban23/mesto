@@ -11,7 +11,12 @@
   transition: opacity 0.5s ease-in-out;
   cursor: pointer;
   align-self: flex-end;
-  transform: translate(75px, -125%);
+  /* transform: translate(75px, -125%); */
+  position: absolute;
+  top: -40px;
+  bottom: 0;
+  left: 440px;
+  right: 0;
   background-size: cover;
 }
 
@@ -23,8 +28,7 @@
   .popup__close {
     width: 20px;
     height: 20px;
-    transform: translate(25px, -148%);
-
+    left: 260px;
 
   }
 }
