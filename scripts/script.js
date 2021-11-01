@@ -9,23 +9,20 @@ let saveBtnProfile = document.querySelector('.popup__form');
 //  находим popup
 let popup = document.querySelector('.popup');
 
-//  находим имя и профессию в блоке profile
-let profileName = content.querySelector('.profile__name');
-let profileProfession = content.querySelector('.profile__profession');
-
 //  находим Инпуты в popup
 let popupInputTypeName = document.querySelector('.popup__input_type_name');
 let popupInputTypeProfession = document.querySelector('.popup__input_type_profession');
 
-//  заполняем Инпуты содержимым из профиля, имя и профессия
-popupInputTypeName.value = profileName.innerHTML;
-popupInputTypeProfession.value = profileProfession.innerHTML;
-
+//  находим имя и профессию в блоке profile
+let profileName = content.querySelector('.profile__name');
+let profileProfession = content.querySelector('.profile__profession');
 
 //  функции для открытия и закрытия popup
 function createProfilePopup() {
   popup.classList.add('popup_opened');
-
+  //  заполняем Инпуты содержимым из профиля, имя и профессия
+  popupInputTypeName.value = profileName.innerHTML;
+  popupInputTypeProfession.value = profileProfession.innerHTML;
 }
 
 function closeProfilePopup() {
@@ -36,14 +33,16 @@ function closeProfilePopup() {
 //  функция отправки формы (пока форму никуда не отправляем)
 function formSubmitHandler(evt) {
   evt.preventDefault();
-
+  // Присваиваем переменным значение value Инпутов
   let nameInputValue = popupInputTypeName.value;
   let professionInputValue = popupInputTypeProfession.value;
 
+  // Вставляем новые значения в поля профиля имя и профессия
   profileName.textContent = nameInputValue;
   profileProfession.textContent = professionInputValue;
 
-  popup.classList.remove('popup_opened');
+  // закрываем popup
+  closeProfilePopup();
 }
 
 //  создали слушателя для кнопок
