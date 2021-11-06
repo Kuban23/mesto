@@ -1,7 +1,8 @@
 .profile {
   max-width: 880px;
+  width: 100%;
   display: flex;
-  justify-content: space-between;
+  justify-content: flex-start;
   flex-direction: row;
   align-items: center;
   padding-top: 40px;

@@ -33,13 +33,10 @@ function closeProfilePopup() {
 //  функция отправки формы (пока форму никуда не отправляем)
 function formSubmitHandler(evt) {
   evt.preventDefault();
-  // Присваиваем переменным значение value Инпутов
-  let nameInputValue = popupInputTypeName.value; // Прошу Вас пересмотреть данное замечание, т.к. это не ДОМ элемен, а строка-значение...
-  let professionInputValue = popupInputTypeProfession.value; // Прошу Вас пересмотреть данное замечание, т.к. это не ДОМ элемен, а строка-значение...
 
   // Вставляем новые значения в поля профиля имя и профессия
-  profileName.textContent = nameInputValue;
-  profileProfession.textContent = professionInputValue;
+  profileName.textContent = popupInputTypeName.value;
+  profileProfession.textContent = popupInputTypeProfession.value;
 
   // закрываем popup
   closeProfilePopup();
@@ -49,4 +46,5 @@ function formSubmitHandler(evt) {
 editBtnProfile.addEventListener('click', createProfilePopup);
 closeBtnPopup.addEventListener('click', closeProfilePopup);
 profileForm.addEventListener('submit', formSubmitHandler);
+
 
