@@ -4,7 +4,7 @@ let content = document.querySelector('.content');
 //  находим кнопоки
 let editBtnProfile = content.querySelector('.profile__edit-button');
 let closeBtnPopup = document.querySelector('.popup__close');
-let saveBtnProfile = document.querySelector('.popup__form');
+let profileForm = document.querySelector('.popup__form');
 
 //  находим popup
 let popup = document.querySelector('.popup');
@@ -34,8 +34,8 @@ function closeProfilePopup() {
 function formSubmitHandler(evt) {
   evt.preventDefault();
   // Присваиваем переменным значение value Инпутов
-  let nameInputValue = popupInputTypeName.value;
-  let professionInputValue = popupInputTypeProfession.value;
+  let nameInputValue = popupInputTypeName.value; // Прошу Вас пересмотреть данное замечание, т.к. это не ДОМ элемен, а строка-значение...
+  let professionInputValue = popupInputTypeProfession.value; // Прошу Вас пересмотреть данное замечание, т.к. это не ДОМ элемен, а строка-значение...
 
   // Вставляем новые значения в поля профиля имя и профессия
   profileName.textContent = nameInputValue;
@@ -48,5 +48,5 @@ function formSubmitHandler(evt) {
 //  создали слушателя для кнопок
 editBtnProfile.addEventListener('click', createProfilePopup);
 closeBtnPopup.addEventListener('click', closeProfilePopup);
-saveBtnProfile.addEventListener('submit', formSubmitHandler);
+profileForm.addEventListener('submit', formSubmitHandler);
 

@@ -6,17 +6,13 @@
   border: none;
   background-color: transparent;
   box-sizing: border-box;
-  /* margin: 0; */
   padding: 0;
   transition: opacity 0.5s ease-in-out;
   cursor: pointer;
   align-self: flex-end;
-  /* transform: translate(75px, -125%); */
   position: absolute;
   top: -40px;
-  bottom: 0;
-  left: 440px;
-  right: 0;
+  right: -40px;
   background-size: cover;
 }
 
@@ -28,7 +24,7 @@
   .popup__close {
     width: 20px;
     height: 20px;
-    left: 260px;
-
+    right: 0;
+    top: -37px;
   }
 }
