@@ -9,11 +9,11 @@ const profileForm = document.querySelector('.popup__form');
 const addBtnProfile = document.querySelector('.profile__add-button');
 
 //  находим popup
+const popup = document.querySelector('.popup');
 const popupProfile = document.querySelector('.popup_type_profile');
 const popupAddImage = document.querySelector('.popup_type_addImage');
 
 //  находим Инпуты в popup
-const popup = document.querySelector('.popup');
 const popupInputTypeName = document.querySelector('.popup__input_type_name');
 const popupInputTypeProfession = document.querySelector('.popup__input_type_profession');
 
