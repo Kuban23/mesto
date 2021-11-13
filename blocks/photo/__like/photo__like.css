@@ -1,4 +1,4 @@
-.elements__like {
+.photo__like {
   width: 22px;
   height: 19px;
   color: #000000;
@@ -13,10 +13,10 @@
   cursor: pointer;
   padding: 0 11px 0 11px;
 
-  
+
 }
 
-.elements__like:hover {
+.photo__like:hover {
   opacity: 0.5;
 }
 

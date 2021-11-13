@@ -1,5 +1,5 @@
-// находим блок elements -------------------------------------------------------------------------------
-const elementsContainer = document.querySelector('.elements');
+// находим блок photo -------------------------------------------------------------------------------
+const photoContainer = document.querySelector('.photo');
 
 // Берем форму popup картинок
 const addImageForm = document.querySelector('.popup_type_addImage .form__image');
@@ -37,20 +37,21 @@ const initialCards = [
   }
 ];
 
-const elementsTemplate = document.querySelector('.elements-template').content;
+const photoTemplate = document.querySelector('.photo-template').content;
 
+// photo elements
 
 // Функция для добавления картинок из массива на страницу
 function addImageHtml(element) {
-  const elementsElement = elementsTemplate.querySelector('.elements__element').cloneNode(true);
+  const photoElement = photoTemplate.querySelector('.photo__element').cloneNode(true);
 
-  elementsElement.querySelector('.elements__image').src = element.link;
-  elementsElement.querySelector('.elements__text').textContent = element.name;
+  photoElement.querySelector('.photo__image').src = element.link;
+  photoElement.querySelector('.photo__text').textContent = element.name;
 
-  elementsContainer.append(elementsElement);
+  photoContainer.append(photoElement);
 
-  elementsElement.querySelector('.elements__like').addEventListener('click', function (evt) {
-    evt.target.classList.toggle('elements__like_active');
+  photoElement.querySelector('.photo__like').addEventListener('click', function (evt) {
+    evt.target.classList.toggle('photo__like_active');
   });
 
 }
@@ -62,29 +63,17 @@ initialCards.forEach(addImageHtml);
 // Функция для добавления картинок через popup
 function addElemets(evt) {
   evt.preventDefault();
-  const elementsElement = elementsTemplate.querySelector('.elements__element').cloneNode(true);
+  const photoElement = photoTemplate.querySelector('.photo__element').cloneNode(true);
 
-  elementsElement.querySelector('.elements__image').src = popupInputaddImageLink.value;
-  elementsElement.querySelector('.elements__text').textContent = popupInputaddImageTitle.value;
+  photoElement.querySelector('.photo__image').src = popupInputaddImageLink.value;
+  photoElement.querySelector('.photo__text').textContent = popupInputaddImageTitle.value;
 
-  elementsContainer.prepend(elementsElement);
+  photoContainer.prepend(photoElement);
 
   closeProfilePopup(popupAddImage);
 
-  // console.log(elementsElement);
+  // console.log(photoElement);
 };
-
-// Функция для добавления лайков
-
-
-// const elementsElement = elementsTemplate.querySelector('.elements__element').cloneNode(true);
-
-// elementsElement.querySelector('.elements__like').addEventListener('click', function (evt) {
-//   evt.target.classList.add('elements__like_active');
-// });
-
-
-
 
 
 // -----------------------------------------------------------------------------------------------
