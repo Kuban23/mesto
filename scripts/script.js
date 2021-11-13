@@ -1,5 +1,5 @@
 // находим блок photo -------------------------------------------------------------------------------
-const photoContainer = document.querySelector('.photo');
+const photoContainer = document.querySelector('.galery');
 
 // Берем форму popup картинок
 const addImageForm = document.querySelector('.popup_type_addImage .form__image');
@@ -7,8 +7,6 @@ const addImageForm = document.querySelector('.popup_type_addImage .form__image')
 // Находим Инпуты popup для добавления карточек
 const popupInputaddImageTitle = document.querySelector('.popup__input_type_title');
 const popupInputaddImageLink = document.querySelector('.popup__input_type_link');
-
-
 
 const initialCards = [
   {
@@ -43,7 +41,7 @@ const photoTemplate = document.querySelector('.photo-template').content;
 
 // Функция для добавления картинок из массива на страницу
 function addImageHtml(element) {
-  const photoElement = photoTemplate.querySelector('.photo__element').cloneNode(true);
+  const photoElement = photoTemplate.querySelector('.photo').cloneNode(true);
 
   photoElement.querySelector('.photo__image').src = element.link;
   photoElement.querySelector('.photo__text').textContent = element.name;
@@ -53,6 +51,17 @@ function addImageHtml(element) {
   photoElement.querySelector('.photo__like').addEventListener('click', function (evt) {
     evt.target.classList.toggle('photo__like_active');
   });
+
+  const photoBtnTrash = photoElement.querySelector('.photo__trash');
+
+  photoBtnTrash.addEventListener('click', function () {
+     const listItem = photoBtnTrash.closest('.photo');
+    listItem.remove();
+  });
+
+  //   photoElement.addEventListener('click', function () {
+  //   photoElement.remove();
+  // });
 
 }
 
@@ -76,6 +85,7 @@ function addElemets(evt) {
 };
 
 
+
 // -----------------------------------------------------------------------------------------------
 
 //  находим кнопоки
@@ -84,6 +94,7 @@ const closeBtnPopupProfile = document.querySelector('.popup_type_profile .popup_
 const closeBtnPopupImage = document.querySelector('.popup_type_addImage .popup__close');
 const profileForm = document.querySelector('.popup__form');
 const addBtnProfile = document.querySelector('.profile__add-button');
+
 
 //  находим popup
 const popupProfile = document.querySelector('.popup_type_profile');
@@ -155,12 +166,11 @@ closeBtnPopupImage.addEventListener('click', function () { // Закрываем
   closeProfilePopup(popupAddImage);
 });
 
+profileForm.addEventListener('submit', formSubmitHandler); // Кпнопка сохранения popup profile (отправка формы)
 
-profileForm.addEventListener('submit', formSubmitHandler);
+addImageForm.addEventListener('submit', addElemets); // Кпнопка добавления из popup image картинки по ссылке
 
-addImageForm.addEventListener('submit', addElemets);
+// photoBtnTrash.addEventListener('click', deleteFoto); // Кнопка удаления карточки
 
 
-
-// closeBtnPopup.addEventListener('click', closeAddImagePopup);
 
