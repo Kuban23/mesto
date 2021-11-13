@@ -1,5 +1,93 @@
-//  находим кнонтент
-//const content = document.querySelector('.content');
+// находим блок elements -------------------------------------------------------------------------------
+const elementsContainer = document.querySelector('.elements');
+
+// Берем форму popup картинок
+const addImageForm = document.querySelector('.popup_type_addImage .form__image');
+
+// Находим Инпуты popup для добавления карточек
+const popupInputaddImageTitle = document.querySelector('.popup__input_type_title');
+const popupInputaddImageLink = document.querySelector('.popup__input_type_link');
+
+
+
+const initialCards = [
+  {
+    name: 'Архыз',
+    link: 'https://pictures.s3.yandex.net/frontend-developer/cards-compressed/arkhyz.jpg'
+  },
+  {
+    name: 'Челябинская область',
+    link: 'https://pictures.s3.yandex.net/frontend-developer/cards-compressed/chelyabinsk-oblast.jpg'
+  },
+  {
+    name: 'Иваново',
+    link: 'https://pictures.s3.yandex.net/frontend-developer/cards-compressed/ivanovo.jpg'
+  },
+  {
+    name: 'Камчатка',
+    link: 'https://pictures.s3.yandex.net/frontend-developer/cards-compressed/kamchatka.jpg'
+  },
+  {
+    name: 'Холмогорский район',
+    link: 'https://pictures.s3.yandex.net/frontend-developer/cards-compressed/kholmogorsky-rayon.jpg'
+  },
+  {
+    name: 'Байкал',
+    link: 'https://pictures.s3.yandex.net/frontend-developer/cards-compressed/baikal.jpg'
+  }
+];
+
+const elementsTemplate = document.querySelector('.elements-template').content;
+
+
+// Функция для добавления картинок из массива на страницу
+function addImageHtml(element) {
+  const elementsElement = elementsTemplate.querySelector('.elements__element').cloneNode(true);
+
+  elementsElement.querySelector('.elements__image').src = element.link;
+  elementsElement.querySelector('.elements__text').textContent = element.name;
+
+  elementsContainer.append(elementsElement);
+
+  elementsElement.querySelector('.elements__like').addEventListener('click', function (evt) {
+    evt.target.classList.toggle('elements__like_active');
+  });
+
+}
+
+// Перебираем массив и добавляем картинки
+initialCards.forEach(addImageHtml);
+
+
+// Функция для добавления картинок через popup
+function addElemets(evt) {
+  evt.preventDefault();
+  const elementsElement = elementsTemplate.querySelector('.elements__element').cloneNode(true);
+
+  elementsElement.querySelector('.elements__image').src = popupInputaddImageLink.value;
+  elementsElement.querySelector('.elements__text').textContent = popupInputaddImageTitle.value;
+
+  elementsContainer.prepend(elementsElement);
+
+  closeProfilePopup(popupAddImage);
+
+  // console.log(elementsElement);
+};
+
+// Функция для добавления лайков
+
+
+// const elementsElement = elementsTemplate.querySelector('.elements__element').cloneNode(true);
+
+// elementsElement.querySelector('.elements__like').addEventListener('click', function (evt) {
+//   evt.target.classList.add('elements__like_active');
+// });
+
+
+
+
+
+// -----------------------------------------------------------------------------------------------
 
 //  находим кнопоки
 const editBtnProfile = document.querySelector('.profile__edit-button');
@@ -9,11 +97,11 @@ const profileForm = document.querySelector('.popup__form');
 const addBtnProfile = document.querySelector('.profile__add-button');
 
 //  находим popup
-const popup = document.querySelector('.popup');
 const popupProfile = document.querySelector('.popup_type_profile');
 const popupAddImage = document.querySelector('.popup_type_addImage');
 
 //  находим Инпуты в popup
+const popup = document.querySelector('.popup');
 const popupInputTypeName = document.querySelector('.popup__input_type_name');
 const popupInputTypeProfession = document.querySelector('.popup__input_type_profession');
 
@@ -80,6 +168,8 @@ closeBtnPopupImage.addEventListener('click', function () { // Закрываем
 
 
 profileForm.addEventListener('submit', formSubmitHandler);
+
+addImageForm.addEventListener('submit', addElemets);
 
 
 
