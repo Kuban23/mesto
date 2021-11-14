@@ -37,8 +37,6 @@ const initialCards = [
 
 const photoTemplate = document.querySelector('.photo-template').content;
 
-// photo elements
-
 // Функция для добавления картинок из массива на страницу
 function addImageHtml(element) {
   const photoElement = photoTemplate.querySelector('.photo').cloneNode(true);
@@ -48,20 +46,27 @@ function addImageHtml(element) {
 
   photoContainer.append(photoElement);
 
+  // Реализация лайков
   photoElement.querySelector('.photo__like').addEventListener('click', function (evt) {
     evt.target.classList.toggle('photo__like_active');
   });
 
+  // реализация удаления карточек
   const photoBtnTrash = photoElement.querySelector('.photo__trash');
 
   photoBtnTrash.addEventListener('click', function () {
-     const listItem = photoBtnTrash.closest('.photo');
+    const listItem = photoBtnTrash.closest('.photo');
     listItem.remove();
   });
 
-  //   photoElement.addEventListener('click', function () {
-  //   photoElement.remove();
-  // });
+  // Реализация просмотра картинок
+  const photoImage = photoElement.querySelector('.photo__image');
+
+  photoImage.addEventListener('click', function () {
+    // createProfilePopup(photoElement);
+    photoElement.classList.add('popup_opened');
+  });
+
 
 }
 
@@ -91,14 +96,18 @@ function addElemets(evt) {
 //  находим кнопоки
 const editBtnProfile = document.querySelector('.profile__edit-button');
 const closeBtnPopupProfile = document.querySelector('.popup_type_profile .popup__close');
-const closeBtnPopupImage = document.querySelector('.popup_type_addImage .popup__close');
+const closeBtnPopupAddImage = document.querySelector('.popup_type_addImage .popup__close');
+const closeBtnPopupImage = document.querySelector('.popup_type_image .popup__close');
 const profileForm = document.querySelector('.popup__form');
 const addBtnProfile = document.querySelector('.profile__add-button');
 
+// Находим картинку для последующего клика по ней
+// const photoImage = document.querySelector('.photo__image');
 
 //  находим popup
 const popupProfile = document.querySelector('.popup_type_profile');
 const popupAddImage = document.querySelector('.popup_type_addImage');
+const popupImageViewing = document.querySelector('.popup_type_image');
 
 //  находим Инпуты в popup
 const popup = document.querySelector('.popup');
@@ -157,14 +166,25 @@ addBtnProfile.addEventListener('click', function () {  // Открываем pop
   createProfilePopup(popupAddImage);
 });
 
+// photoImage.addEventListener('click', function () {  // Открываем popup картинки для увеличенного просмотра
+//   createProfilePopup(popupImageViewing);
+// });
+
+
 
 closeBtnPopupProfile.addEventListener('click', function () { // Закрываем popup profile
   closeProfilePopup(popup);
 });
 
-closeBtnPopupImage.addEventListener('click', function () { // Закрываем popup картинок
+closeBtnPopupAddImage.addEventListener('click', function () { // Закрываем popup для добавления карточек
   closeProfilePopup(popupAddImage);
 });
+
+closeBtnPopupImage.addEventListener('click', function () { // Закрываем popup для просмотра увеличенной картинки
+  closeProfilePopup(popupImageViewing);
+});
+
+
 
 profileForm.addEventListener('submit', formSubmitHandler); // Кпнопка сохранения popup profile (отправка формы)
 
