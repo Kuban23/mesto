@@ -37,6 +37,7 @@ const initialCards = [
 
 const photoTemplate = document.querySelector('.photo-template').content;
 
+
 // Функция для добавления картинок из массива на страницу
 function addImageHtml(element) {
   const photoElement = photoTemplate.querySelector('.photo').cloneNode(true);
@@ -52,23 +53,30 @@ function addImageHtml(element) {
   });
 
   // реализация удаления карточек
+
   const photoBtnTrash = photoElement.querySelector('.photo__trash');
 
   photoBtnTrash.addEventListener('click', function () {
-    const listItem = photoBtnTrash.closest('.photo');
+  const listItem = photoBtnTrash.closest('.photo');
     listItem.remove();
   });
 
+
+
   // Реализация просмотра картинок
-  const photoImage = photoElement.querySelector('.photo__image');
+   const photoImage = photoElement.querySelector('.photo__image');
+
 
   photoImage.addEventListener('click', function () {
     // createProfilePopup(photoElement);
-    photoElement.classList.add('popup_opened');
+    photoElement.classList.remove('popup_opened');
   });
 
 
+
 }
+
+
 
 // Перебираем массив и добавляем картинки
 initialCards.forEach(addImageHtml);
@@ -107,7 +115,7 @@ const addBtnProfile = document.querySelector('.profile__add-button');
 //  находим popup
 const popupProfile = document.querySelector('.popup_type_profile');
 const popupAddImage = document.querySelector('.popup_type_addImage');
-const popupImageViewing = document.querySelector('.popup_type_image');
+// const popupImageViewing = document.querySelector('.popup_type_image');
 
 //  находим Инпуты в popup
 const popup = document.querySelector('.popup');
