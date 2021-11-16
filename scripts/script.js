@@ -1,12 +1,59 @@
-// находим блок photo -------------------------------------------------------------------------------
+//  Находим кнопоки
+const editBtnProfile = document.querySelector('.profile__edit-button');
+const closeBtnPopupProfile = document.querySelector('.popup_type_profile .popup__close');
+const closeBtnPopupAddImage = document.querySelector('.popup_type_addImage .popup__close');
+const closeBtnPopupImage = document.querySelector('.popup_type_image .popup__close');
+const profileForm = document.querySelector('.popup__form');
+const addBtnProfile = document.querySelector('.profile__add-button');
+
+//  Находим popup
+const popup = document.querySelector('.popup');
+const popupProfile = document.querySelector('.popup_type_profile');
+const popupAddImage = document.querySelector('.popup_type_addImage');
+const popupImageViewing = document.querySelector('.popup_type_image');
+
+//  Находим Инпуты в popup
+const popupInputTypeName = document.querySelector('.popup__input_type_name');
+const popupInputTypeProfession = document.querySelector('.popup__input_type_profession');
+
+// Находим Инпуты popup для добавления карточек
+const popupInputaddImageTitle = document.querySelector('.popup__input_type_title');
+const popupInputaddImageLink = document.querySelector('.popup__input_type_link');
+
+// Находим имя и профессию в блоке profile
+const profileName = document.querySelector('.profile__name');
+const profileProfession = document.querySelector('.profile__profession');
+
+// Находим блок photo
 const photoContainer = document.querySelector('.galery');
 
 // Берем форму popup картинок
 const addImageForm = document.querySelector('.popup_type_addImage .form__image');
 
-// Находим Инпуты popup для добавления карточек
-const popupInputaddImageTitle = document.querySelector('.popup__input_type_title');
-const popupInputaddImageLink = document.querySelector('.popup__input_type_link');
+
+//  функции для открытия и закрытия popup profile
+function createProfilePopup(popupElement) {
+  popupElement.classList.add('popup_opened');
+  //  заполняем Инпуты содержимым из профиля, имя и профессия
+  popupInputTypeName.value = profileName.innerHTML;
+  popupInputTypeProfession.value = profileProfession.innerHTML;
+}
+
+function closeProfilePopup(popupElement) {
+  popupElement.classList.remove('popup_opened');
+}
+
+//  Функция отправки формы (пока форму никуда не отправляем)
+function formSubmitHandler(evt) {
+  evt.preventDefault();
+
+  // Вставляем новые значения в поля профиля имя и профессия
+  profileName.textContent = popupInputTypeName.value;
+  profileProfession.textContent = popupInputTypeProfession.value;
+
+  // Закрываем popup
+  closeProfilePopup(popupProfile);
+}
 
 const initialCards = [
   {
@@ -35,6 +82,7 @@ const initialCards = [
   }
 ];
 
+// Получаем содержимое template обращаясь к св-ву content
 const photoTemplate = document.querySelector('.photo-template').content;
 
 
@@ -53,30 +101,20 @@ function addImageHtml(element) {
   });
 
   // реализация удаления карточек
-
   const photoBtnTrash = photoElement.querySelector('.photo__trash');
-
   photoBtnTrash.addEventListener('click', function () {
-  const listItem = photoBtnTrash.closest('.photo');
+    const listItem = photoBtnTrash.closest('.photo');
     listItem.remove();
   });
 
-
-
   // Реализация просмотра картинок
-   const photoImage = photoElement.querySelector('.photo__image');
-
-
+  const photoImage = photoElement.querySelector('.photo__image');
   photoImage.addEventListener('click', function () {
-    // createProfilePopup(photoElement);
-    photoElement.classList.remove('popup_opened');
+    createProfilePopup(popupImageViewing);
+    popupImageViewing.querySelector('.popup__image').src = photoImage.src;
+    popupImageViewing.querySelector('.popup__title-image').textContent = element.name;
   });
-
-
-
 }
-
-
 
 // Перебираем массив и добавляем картинки
 initialCards.forEach(addImageHtml);
@@ -97,75 +135,7 @@ function addElemets(evt) {
   // console.log(photoElement);
 };
 
-
-
-// -----------------------------------------------------------------------------------------------
-
-//  находим кнопоки
-const editBtnProfile = document.querySelector('.profile__edit-button');
-const closeBtnPopupProfile = document.querySelector('.popup_type_profile .popup__close');
-const closeBtnPopupAddImage = document.querySelector('.popup_type_addImage .popup__close');
-const closeBtnPopupImage = document.querySelector('.popup_type_image .popup__close');
-const profileForm = document.querySelector('.popup__form');
-const addBtnProfile = document.querySelector('.profile__add-button');
-
-// Находим картинку для последующего клика по ней
-// const photoImage = document.querySelector('.photo__image');
-
-//  находим popup
-const popupProfile = document.querySelector('.popup_type_profile');
-const popupAddImage = document.querySelector('.popup_type_addImage');
-// const popupImageViewing = document.querySelector('.popup_type_image');
-
-//  находим Инпуты в popup
-const popup = document.querySelector('.popup');
-const popupInputTypeName = document.querySelector('.popup__input_type_name');
-const popupInputTypeProfession = document.querySelector('.popup__input_type_profession');
-
-//  находим имя и профессию в блоке profile
-let profileName = document.querySelector('.profile__name');
-let profileProfession = document.querySelector('.profile__profession');
-
-//  функции для открытия и закрытия popup profile
-function createProfilePopup(popupElement) {
-  popupElement.classList.add('popup_opened');
-
-  //  заполняем Инпуты содержимым из профиля, имя и профессия
-  popupInputTypeName.value = profileName.innerHTML;
-  popupInputTypeProfession.value = profileProfession.innerHTML;
-}
-
-function closeProfilePopup(popupElement) {
-  popupElement.classList.remove('popup_opened');
-}
-
-//  функции для открытия и закрытия popup addImage
-
-// function createAddImagePopup() {
-//   popupAddImage.classList.add('popup_opened');
-// }
-
-// function closeAddImagePopup() {
-//   popupAddImage.classList.remove('popup_opened');
-// }
-
-
-
-//  функция отправки формы (пока форму никуда не отправляем)
-function formSubmitHandler(evt) {
-  evt.preventDefault();
-
-  // Вставляем новые значения в поля профиля имя и профессия
-  profileName.textContent = popupInputTypeName.value;
-  profileProfession.textContent = popupInputTypeProfession.value;
-
-  // закрываем popup
-  closeProfilePopup(popupProfile);
-}
-
-
-
-//  создали слушателя для кнопок
+//  Создаем слушателя для кнопок
 editBtnProfile.addEventListener('click', function () { // Открываем popup profile
   createProfilePopup(popupProfile);
 });
@@ -173,11 +143,6 @@ editBtnProfile.addEventListener('click', function () { // Открываем pop
 addBtnProfile.addEventListener('click', function () {  // Открываем popup для добавления картинок
   createProfilePopup(popupAddImage);
 });
-
-// photoImage.addEventListener('click', function () {  // Открываем popup картинки для увеличенного просмотра
-//   createProfilePopup(popupImageViewing);
-// });
-
 
 
 closeBtnPopupProfile.addEventListener('click', function () { // Закрываем popup profile
@@ -192,13 +157,10 @@ closeBtnPopupImage.addEventListener('click', function () { // Закрываем
   closeProfilePopup(popupImageViewing);
 });
 
-
-
 profileForm.addEventListener('submit', formSubmitHandler); // Кпнопка сохранения popup profile (отправка формы)
 
 addImageForm.addEventListener('submit', addElemets); // Кпнопка добавления из popup image картинки по ссылке
 
-// photoBtnTrash.addEventListener('click', deleteFoto); // Кнопка удаления карточки
 
 
 
