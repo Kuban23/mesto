@@ -1,4 +1,4 @@
-//  Находим кнопки
+//  Находим кнопки 
 const editBtnProfile = document.querySelector('.profile__edit-button');
 const closeBtnPopupProfile = document.querySelector('.popup_type_profile .popup__close');
 const closeBtnPopupAddImage = document.querySelector('.popup_type_addImage .popup__close');
@@ -28,7 +28,7 @@ const profileProfession = document.querySelector('.profile__profession');
 const photoContainer = document.querySelector('.galery');
 
 // Берем форму popup картинок
-const addImageForm = document.querySelector('.popup_type_addImage .form__image');
+const addImageForm = document.querySelector('.popup_type_addImage .popup__form-image');
 
 
 //  функции для открытия и закрытия popup profile
