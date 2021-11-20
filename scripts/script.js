@@ -36,9 +36,6 @@ const addImageForm = document.querySelector('.popup_type_addImage .popup__form-i
 //  функции для открытия и закрытия popup profile
 function openPopup(popupElement) {
   popupElement.classList.add('popup_opened');
-  //  заполняем Инпуты содержимым из профиля, имя и профессия
-  popupInputTypeName.value = profileName.textContent;
-  popupInputTypeProfession.value = profileProfession.textContent;
 }
 
 function closePopup(popupElement) {
@@ -67,9 +64,8 @@ function addImageHtml(element) {
   const photoImage = photoElement.querySelector('.photo__image');
 
   photoImage.src = element.link;
+  photoImage.alt = element.name;
   photoElement.querySelector('.photo__text').textContent = element.name;
-
-  photoContainer.append(photoElement);
 
   // Реализация лайков
   photoElement.querySelector('.photo__like').addEventListener('click', function (evt) {
@@ -95,8 +91,8 @@ function addImageHtml(element) {
 
 }
 
-// Перебираем массив и добавляем картинки
-initialCards.forEach(addImageHtml);
+// Перебираем массив и добавляем карточку
+initialCards.forEach((cardInfo) => photoContainer.append(addImageHtml(cardInfo)));
 
 // Функция для создания карточки ч/з popup
 function createCard(cardInfo) {
@@ -118,7 +114,11 @@ function handler(evt) {
 };
 
 //  Создаем слушателя для кнопок
-editBtnProfile.addEventListener('click', function () { // Открываем popup profile
+
+editBtnProfile.addEventListener('click', function () {            // Открываем popup profile
+  //  заполняем Инпуты содержимым из профиля, имя и профессия
+  popupInputTypeName.value = profileName.textContent;
+  popupInputTypeProfession.value = profileProfession.textContent;
   openPopup(popupProfile);
 });
 
@@ -127,7 +127,7 @@ addBtnProfile.addEventListener('click', function () {  // Открываем pop
 });
 
 closeBtnPopupProfile.addEventListener('click', function () { // Закрываем popup profile
-  closePopup(popup);
+  closePopup(popupProfile);
 });
 
 closeBtnPopupAddImage.addEventListener('click', function () { // Закрываем popup для добавления карточек
