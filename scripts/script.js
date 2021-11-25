@@ -9,7 +9,7 @@ const addBtnCard = document.querySelector('.popup__submit-button');
 
 
 //  Находим popup
-// const popup = document.querySelector('.popup');
+const popupList = document.querySelectorAll('.popup');
 const popupProfile = document.querySelector('.popup_type_profile');
 const popupAddImage = document.querySelector('.popup_type_addImage');
 const popupImageViewing = document.querySelector('.popup_type_image');
@@ -36,6 +36,25 @@ const addImageForm = document.querySelector('.popup_type_addImage .popup__form-i
 //  функции для открытия и закрытия popup profile
 function openPopup(popupElement) {
   popupElement.classList.add('popup_opened');
+  document.addEventListener('keydown', function (evt) {
+    if (evt.key = 'Escape') {
+      // for (let i = 0; i < popupList.length; i++) {
+      //   popupList[i].classList.remove('popup_opened');
+      // }
+      popupList.forEach(function (popupElement) {
+        popupElement.classList.remove('popup_opened');
+      });
+    }
+  });
+
+  document.addEventListener('mousedown', function (evt) {
+    if (evt.target.classList.contains('popup_opened')) {
+      popupList.forEach(function (popupElement) {
+        popupElement.classList.remove('popup_opened');
+      });
+    }
+  });
+
 }
 
 function closePopup(popupElement) {

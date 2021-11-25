@@ -3,13 +3,15 @@
   font-weight: 400;
   font-size: 14px;
   line-height: 17px;
-  padding: 0 0 9px;
+  /* padding: 0 0 9px; */
   border: none;
   border-bottom: 1px solid rgba(0, 0, 0, 0.2);
-  margin-bottom: 30px;
+  /* margin-bottom: 30px; */
+  margin-bottom: 5px;
+  padding-bottom: 13px;
 }
 
-.popup__input:nth-child(2) {
+
+.popup__input:last-child{
   margin-bottom: 0;
 }
-
