@@ -36,16 +36,16 @@ const addImageForm = document.querySelector('.popup_type_addImage .popup__form-i
 //  функции для открытия и закрытия popup profile
 function openPopup(popupElement) {
   popupElement.classList.add('popup_opened');
-  document.addEventListener('keydown', function (evt) {
-    if (evt.key = 'Escape') {
-      // for (let i = 0; i < popupList.length; i++) {
-      //   popupList[i].classList.remove('popup_opened');
-      // }
-      popupList.forEach(function (popupElement) {
-        popupElement.classList.remove('popup_opened');
-      });
-    }
-  });
+  // document.addEventListener('keydown', function (evt) {
+  //   if (evt.key = 'Escape') {
+  //     // for (let i = 0; i < popupList.length; i++) {
+  //     //   popupList[i].classList.remove('popup_opened');
+  //     // }
+  //     popupList.forEach(function (popupElement) {
+  //       popupElement.classList.remove('popup_opened');
+  //     });
+  //   }
+  // });
 
   document.addEventListener('mousedown', function (evt) {
     if (evt.target.classList.contains('popup_opened')) {
@@ -59,6 +59,7 @@ function openPopup(popupElement) {
 
 function closePopup(popupElement) {
   popupElement.classList.remove('popup_opened');
+
 }
 
 //  Функция отправки формы (пока форму никуда не отправляем)
