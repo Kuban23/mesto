@@ -48,11 +48,15 @@ const toggleButtonState = (inputList, buttonElement) => {
   // Если хоть один Инпут не валидный, делаем кнопку не активной
   if (hasInvalidInput(inputList)) {
     buttonElement.classList.add('popup__submit-button_inactive');
+    buttonElement.disabled= true;
   }
   else {
     buttonElement.classList.remove('popup__submit-button_inactive');
+    buttonElement.disabled= false;
   }
 };
+
+
 
 // Добавление обработчиков всем Инпутам
 const setEventListeners = (formElement) => {
@@ -94,27 +98,6 @@ enableValidation();
 
 
 
-// // Функция которая проверяет валидность всех Инпутов
-// const hasInvalidInput = (inputList) => {
-//   // Проходим по массиву методом some. если инпут не валидно, колбэк вернет true,
-//   // обход массива прекатится и функция hasInvalidInput вернет true
-//   return inputList.some((inputElement) => {
-//     return !inputElement.validity.valid;
-//   })
-// };
-
-
-
-// // Функция вкл/откл кнопки 'Отправить'
-// const toggleButtonState = (inputList, buttonElement) => {
-//   // Если хоть один Инпут не валидный, делаем кнопку не активной
-//   if (hasInvalidInput(inputList)) {
-//     buttonElement.classList.add('popup__submit-button_inactive');
-//   }
-//   else {
-//     buttonElement.classList.remove('popup__submit-button_inactive');
-//   }
-// };
 
 
 
