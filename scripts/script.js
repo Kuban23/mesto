@@ -47,7 +47,7 @@ function openPopup(popupElement) {
     }
   });
 
-  document.addEventListener('click', function (evt) {
+  document.addEventListener('mousedown', function (evt) {
     if (evt.target.classList.contains('popup_opened')) {
       popupList.forEach(function (popupElement) {
         popupElement.classList.remove('popup_opened');
