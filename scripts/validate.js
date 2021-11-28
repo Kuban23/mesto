@@ -2,9 +2,9 @@
 // Функция, которая добавляет класс с ошибкой
 const showInputError = (formElement, inputElement, errorMassage, { errorClass, inputErrorClass }) => {
   const errorElement = formElement.querySelector(`.${inputElement.id}-error`); // находим элемент ошибки
-  inputElement.classList.add('inputErrorClass');
+  inputElement.classList.add(inputErrorClass);
   // Показываем сообщение об ошибке
-  errorElement.classList.add('errorClass');
+  errorElement.classList.add(errorClass);
   errorElement.textContent = errorMassage;
 };
 
@@ -14,9 +14,9 @@ const showInputError = (formElement, inputElement, errorMassage, { errorClass, i
 const hideInputError = (formElement, inputElement, config) => {
   const { inputErrorClass, errorClass, } = config;
   const errorElement = formElement.querySelector(`.${inputElement.id}-error`); // находим элемент ошибки
-  inputElement.classList.remove('inputErrorClass');
+  inputElement.classList.remove(inputErrorClass);
   // Убираем сообщение об ошибке
-  errorElement.classList.remove('errorClass');
+  errorElement.classList.remove(errorClass);
   errorElement.textContent = '';
 };
 
@@ -52,7 +52,7 @@ const toggleButtonState = (formElement, buttonElement, inactiveButtonClass) => {
   // Если форма невалидна, то присваиваем свойству disabled кнопки значение true
   buttonElement.disabled = !isFormValid;
   // Если форма невалидна, добавляем кнопке класс
-  buttonElement.classList.toggle(inactiveButtonClass, !isFormValid)
+  buttonElement.classList.toggle(inactiveButtonClass, !isFormValid, isFormValid)
 };
 
 
@@ -86,7 +86,6 @@ const setEventListeners = (formElement, config) => {
 const enableValidation = (config) => {
   // Берем данные из конфига
   const { formSelector, inputSelector, submitButtonSelector, inactiveButtonClass, inputErrorClass, errorClass } = config;
-  // const {formSelector, ...props} = config;
   const formList = Array.from(document.querySelectorAll(formSelector));
   formList.forEach((formElement) => {
     formElement.addEventListener('submit', function (evt) {
@@ -98,14 +97,14 @@ const enableValidation = (config) => {
   });
 };
 
-enableValidation({
-  formSelector: '.popup__form',
-  inputSelector: '.popup__input',
-  submitButtonSelector: '.popup__submit-button',
-  inactiveButtonClass: 'popup__submit-button_inactive',
-  inputErrorClass: 'popup__input_type_error',
-  errorClass: 'popup__input-error'
-})
+// enableValidation({
+//   formSelector: '.popup__form',
+//   inputSelector: '.popup__input',
+//   submitButtonSelector: '.popup__submit-button',
+//   inactiveButtonClass: 'popup__submit-button_inactive',
+//   inputErrorClass: 'popup__input_type_error',
+//   errorClass: 'popup__input-error'
+// })
 
 
 

@@ -1,3 +1,4 @@
+
 //  Находим кнопки
 const editBtnProfile = document.querySelector('.profile__edit-button');
 const closeBtnPopupProfile = document.querySelector('.popup_type_profile .popup__close');
