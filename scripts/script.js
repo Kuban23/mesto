@@ -40,7 +40,9 @@ const initEditForm = () => {
 };
 
 
-//  функции для открытия и закрытия popup profile
+
+
+//  Функции для открытия и закрытия popup profile
 function openPopup(popupElement) {
   popupElement.classList.add('popup_opened');
   document.addEventListener('keydown', function (evt) {
@@ -173,3 +175,4 @@ closeBtnPopupImage.addEventListener('click', function () { // Закрываем
 profileForm.addEventListener('submit', formSubmitHandler); // Кпнопка сохранения popup profile (отправка формы)
 
 addImageForm.addEventListener('submit', handler);
+
