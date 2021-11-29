@@ -33,6 +33,12 @@ const photoContainer = document.querySelector('.galery');
 // Берем форму popup картинок
 const addImageForm = document.querySelector('.popup_type_addImage .popup__form-image');
 
+// Функция которая заполняет Инпуты содержимым из профиля, имя и профессия (перед валидацией)
+const initEditForm = () => {
+  popupInputTypeName.value = profileName.textContent;
+  popupInputTypeProfession.value = profileProfession.textContent;
+};
+
 
 //  функции для открытия и закрытия popup profile
 function openPopup(popupElement) {
@@ -144,9 +150,6 @@ function handler(evt) {
 //  Создаем слушателя для кнопок
 
 editBtnProfile.addEventListener('click', function () {            // Открываем popup profile
-  //  заполняем Инпуты содержимым из профиля, имя и профессия
-  popupInputTypeName.value = profileName.textContent;
-  popupInputTypeProfession.value = profileProfession.textContent;
   openPopup(popupProfile);
 });
 
