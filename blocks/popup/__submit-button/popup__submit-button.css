@@ -12,6 +12,7 @@
   cursor: pointer;
   transition: opacity 0.5s ease-in-out;
   margin-top: 48px;
+  align-self: center;
 }
 
 .popup__submit-button:hover {
@@ -25,5 +26,6 @@
     font-size: 14px;
     line-height: 17px;
     margin-top: 45px;
+
   }
 }
