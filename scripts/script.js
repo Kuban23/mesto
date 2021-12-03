@@ -47,7 +47,7 @@ const initEditForm = () => {
   popupInputTypeProfession.value = profileProfession.textContent;
 };
 
-// Функция закрытия popup по клавише Esc
+// Функция закрытия popup по клавише Esc.
 function closeByEscape(evt) {
   if (evt.key === 'Escape') {
     const openedPopup = document.querySelector('.popup_opened');
@@ -55,25 +55,15 @@ function closeByEscape(evt) {
   }
 }
 
-// Функция закрытия popup при клике по оверлей
-function closeByMousedown(evt) {
-  if (evt.target.classList.contains('popup_opened')) {
-    const openedPopup = document.querySelector('.popup_opened')
-    closePopup(openedPopup);
-  }
-};
-
 //  Функции для открытия и закрытия popup profile
 function openPopup(popupElement) {
   popupElement.classList.add('popup_opened');
   document.addEventListener('keydown', closeByEscape);
-  document.addEventListener('mousedown', closeByMousedown);
 }
 
 function closePopup(popupElement) {
   popupElement.classList.remove('popup_opened');
   document.removeEventListener('keydown', closeByEscape);
-  document.removeEventListener('mousedown', closeByMousedown);
 }
 
 
