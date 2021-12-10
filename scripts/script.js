@@ -1,3 +1,36 @@
+// import {Card} from './Card';
+// import {FormValidator} from './FormValidator';
+
+// class Card {
+//   constructor(data, cardTemplate) {
+//     this._name = data.name;
+//     this._imageAlt = data.name;
+//     this._link = data.link;
+//     this._cardTemplate = cardTemplate;
+//   }
+
+// // Забираем разметку из HTML  и клонируем элемент.
+// _getTemplate() {
+//   const photoElement = document.querySelector('.photo-template').content.querySelector('.photo').cloneNode(true);
+//   return photoElement;
+// }
+
+// // Готовим карточку к публикации.
+// generateCard() {
+//   this._element = this._getTemplate; //Запишем разметку в приватное поле _element
+//   // Добавим данные
+//   this._element.querySelector('.photo__image').src = this._link;
+//   this._element.querySelector('.photo__image').alt = this._name;
+//   this._element.querySelector('.photo__text').textContent = this._name;
+
+//   return this._element;
+// }
+
+
+
+
+
+// }
 
 //  Находим кнопки
 const editBtnProfile = document.querySelector('.profile__edit-button');
@@ -76,40 +109,40 @@ function submitFormHandler(evt) {
   closePopup(popupProfile);
 }
 
-// Получаем содержимое template обращаясь к св-ву content
-const photoTemplate = document.querySelector('.photo-template').content;
+// // Получаем содержимое template обращаясь к св-ву content
+// const photoTemplate = document.querySelector('.photo-template').content;
 
-// Функция для добавления картинок из массива на страницу
-function addImageHtml(element) {
-  const photoElement = photoTemplate.querySelector('.photo').cloneNode(true);
-  const photoImage = photoElement.querySelector('.photo__image');
+// // Функция для добавления картинок из массива на страницу
+// function addImageHtml(element) {
+//   const photoElement = photoTemplate.querySelector('.photo').cloneNode(true);
+//   const photoImage = photoElement.querySelector('.photo__image');
 
-  photoImage.src = element.link;
-  photoImage.alt = element.name;
-  photoElement.querySelector('.photo__text').textContent = element.name;
+//   photoImage.src = element.link;
+//   photoImage.alt = element.name;
+//   photoElement.querySelector('.photo__text').textContent = element.name;
 
-  // Реализация лайков
-  photoElement.querySelector('.photo__like').addEventListener('click', function (evt) {
-    evt.target.classList.toggle('photo__like_active');
-  });
+//   // Реализация лайков
+//   photoElement.querySelector('.photo__like').addEventListener('click', function (evt) {
+//     evt.target.classList.toggle('photo__like_active');
+//   });
 
-  // Реализация удаления карточек
-  const photoBtnTrash = photoElement.querySelector('.photo__trash');
-  photoBtnTrash.addEventListener('click', function () {
-    const listItem = photoBtnTrash.closest('.photo');
-    listItem.remove();
-  });
+//   // Реализация удаления карточек
+//   const photoBtnTrash = photoElement.querySelector('.photo__trash');
+//   photoBtnTrash.addEventListener('click', function () {
+//     const listItem = photoBtnTrash.closest('.photo');
+//     listItem.remove();
+//   });
 
-  // Реализация просмотра картинок
-  photoImage.addEventListener('click', function () {
-    openPopup(popupImageViewing);
-    popupImageViewing.querySelector('.popup__image').src = photoImage.src;
-    popupImageViewing.querySelector('.popup__image').alt = photoImage.alt;
-    popupImageViewing.querySelector('.popup__title-image').textContent = element.name;
-  });
+//   // Реализация просмотра картинок
+//   photoImage.addEventListener('click', function () {
+//     openPopup(popupImageViewing);
+//     popupImageViewing.querySelector('.popup__image').src = photoImage.src;
+//     popupImageViewing.querySelector('.popup__image').alt = photoImage.alt;
+//     popupImageViewing.querySelector('.popup__title-image').textContent = element.name;
+//   });
 
-  return photoElement;
-}
+//   return photoElement;
+// }
 
 // Перебираем массив и добавляем карточку
 initialCards.forEach((cardInfo) => photoContainer.append(addImageHtml(cardInfo)));
@@ -135,6 +168,9 @@ function createObjectHandler(evt) {
   addBtnCard.disabled = true;
   addBtnCard.classList.add('popup__submit-button_inactive');
   closePopup(popupAddImage);
+
+ 
+
 };
 
 //  Создаем слушателя для кнопок
