@@ -1,3 +1,4 @@
+import {initEditForm} from './script.js';
 
 // Функция, которая добавляет класс с ошибкой
 const showInputError = (formElement, inputElement, errorMassage, { errorClass, inputErrorClass }) => {

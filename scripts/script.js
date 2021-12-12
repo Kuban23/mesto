@@ -1,36 +1,5 @@
-// import {Card} from './Card';
-// import {FormValidator} from './FormValidator';
+import { Card } from './Card.js';
 
-// class Card {
-//   constructor(data, cardTemplate) {
-//     this._name = data.name;
-//     this._imageAlt = data.name;
-//     this._link = data.link;
-//     this._cardTemplate = cardTemplate;
-//   }
-
-// // Забираем разметку из HTML  и клонируем элемент.
-// _getTemplate() {
-//   const photoElement = document.querySelector('.photo-template').content.querySelector('.photo').cloneNode(true);
-//   return photoElement;
-// }
-
-// // Готовим карточку к публикации.
-// generateCard() {
-//   this._element = this._getTemplate; //Запишем разметку в приватное поле _element
-//   // Добавим данные
-//   this._element.querySelector('.photo__image').src = this._link;
-//   this._element.querySelector('.photo__image').alt = this._name;
-//   this._element.querySelector('.photo__text').textContent = this._name;
-
-//   return this._element;
-// }
-
-
-
-
-
-// }
 
 //  Находим кнопки
 const editBtnProfile = document.querySelector('.profile__edit-button');
@@ -41,7 +10,7 @@ const addBtnCard = document.querySelector('.popup__submit-button_type_image');
 //  Находим popup
 const popupProfile = document.querySelector('.popup_type_profile');
 const popupAddImage = document.querySelector('.popup_type_addImage');
-const popupImageViewing = document.querySelector('.popup_type_image');
+ export const popupImageViewing = document.querySelector('.popup_type_image');
 
 //  Находим Инпуты в popup Profile
 const popupInputTypeName = document.querySelector('.popup__input_type_name');
@@ -75,7 +44,7 @@ popupList.forEach((popup) => {
 })
 
 // Функция которая заполняет Инпуты содержимым из профиля, имя и профессия (перед валидацией)
-const initEditForm = () => {
+export const initEditForm = () => {
   popupInputTypeName.value = profileName.textContent;
   popupInputTypeProfession.value = profileProfession.textContent;
 };
@@ -89,7 +58,7 @@ function closeByEscape(evt) {
 }
 
 //  Функции для открытия и закрытия popup profile
-function openPopup(popupElement) {
+export function openPopup(popupElement) {
   popupElement.classList.add('popup_opened');
   document.addEventListener('keydown', closeByEscape);
 }
@@ -145,14 +114,20 @@ function submitFormHandler(evt) {
 // }
 
 // Перебираем массив и добавляем карточку
-initialCards.forEach((cardInfo) => photoContainer.append(addImageHtml(cardInfo)));
+initialCards.forEach((item) => {
+  const card = new Card(item, '.photo-template');
+  const cardElement = card.generateCard();
+  photoContainer.prepend(cardElement);
+});
 
-// Функция для создания карточки ч/з popup
+// Функция для создания карточки
 function createCard(cardInfo) {
-  const addCard = addImageHtml(cardInfo);
-  photoContainer.prepend(addCard);
+  const card = new Card(cardInfo, '.photo-template');
+  const cardElement = card.generateCard();
+  photoContainer.prepend(cardElement);
 }
 
+// Функция для создания карточки ч/з popup
 function createObjectHandler(evt) {
   evt.preventDefault();
   // Создали объект который получает данные из Input добавления карточки
@@ -168,9 +143,6 @@ function createObjectHandler(evt) {
   addBtnCard.disabled = true;
   addBtnCard.classList.add('popup__submit-button_inactive');
   closePopup(popupAddImage);
-
- 
-
 };
 
 //  Создаем слушателя для кнопок
