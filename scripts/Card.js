@@ -1,5 +1,5 @@
-import { openPopup } from './script.js';
-import { popupImageViewing } from './script.js';
+import { openPopup } from './parts.js';
+import { popupImageViewing } from './parts.js';
 
 export class Card {
   constructor(data, cardTemplate) {
@@ -39,7 +39,6 @@ export class Card {
 
   // Реализация просмотра картинок
   _popupImageViewing(evt) {
-    //const photoImage = document.querySelector('.photo__image');
     openPopup(popupImageViewing);
     popupImageViewing.querySelector('.popup__image').src = evt.target.src;
     popupImageViewing.querySelector('.popup__image').alt = evt.target.alt;

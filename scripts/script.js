@@ -1,82 +1,106 @@
 import { Card } from './Card.js';
+import {
+  editBtnProfile,
+  profileForm,
+  addBtnProfile,
+  addBtnCard,
+  popupProfile,
+  popupAddImage,
+  popupImageViewing,
+  popupInputTypeName,
+  popupInputTypeProfession,
+  popupInputaddImageTitle,
+  popupInputaddImageLink,
+  profileName,
+  profileProfession,
+  photoContainer,
+  addImageForm,
+  popupList,
+  initEditForm,
+  closeByEscape,
+  openPopup,
+  closePopup,
+  submitFormHandler,
 
 
-//  Находим кнопки
-const editBtnProfile = document.querySelector('.profile__edit-button');
-const profileForm = document.querySelector('.popup__form');
-const addBtnProfile = document.querySelector('.profile__add-button');
-const addBtnCard = document.querySelector('.popup__submit-button_type_image');
+} from './parts.js';
 
-//  Находим popup
-const popupProfile = document.querySelector('.popup_type_profile');
-const popupAddImage = document.querySelector('.popup_type_addImage');
- export const popupImageViewing = document.querySelector('.popup_type_image');
+// //  Находим кнопки
+// const editBtnProfile = document.querySelector('.profile__edit-button');
+// const profileForm = document.querySelector('.popup__form-prof');
+// const addBtnProfile = document.querySelector('.profile__add-button');
+// const addBtnCard = document.querySelector('.popup__submit-button_type_image');
 
-//  Находим Инпуты в popup Profile
-const popupInputTypeName = document.querySelector('.popup__input_type_name');
-const popupInputTypeProfession = document.querySelector('.popup__input_type_profession');
+// //  Находим popup
+// const popupProfile = document.querySelector('.popup_type_profile');
+// const popupAddImage = document.querySelector('.popup_type_addImage');
+// export const popupImageViewing = document.querySelector('.popup_type_image');
 
-// Находим Инпуты popup для добавления карточек
-const popupInputaddImageTitle = document.querySelector('.popup__input_type_title');
-const popupInputaddImageLink = document.querySelector('.popup__input_type_link');
+// //  Находим Инпуты в popup Profile
+// const popupInputTypeName = document.querySelector('.popup__input_type_name');
+// const popupInputTypeProfession = document.querySelector('.popup__input_type_profession');
 
-// Находим имя и профессию в блоке profile
-const profileName = document.querySelector('.profile__name');
-const profileProfession = document.querySelector('.profile__profession');
+// // Находим Инпуты popup для добавления карточек
+// const popupInputaddImageTitle = document.querySelector('.popup__input_type_title');
+// const popupInputaddImageLink = document.querySelector('.popup__input_type_link');
 
-// Находим блок photo
-const photoContainer = document.querySelector('.galery');
+// // Находим имя и профессию в блоке profile
+// const profileName = document.querySelector('.profile__name');
+// const profileProfession = document.querySelector('.profile__profession');
 
-// Берем форму popup картинок
-const addImageForm = document.querySelector('.popup_type_addImage .popup__form-image');
+// // Находим блок photo
+// const photoContainer = document.querySelector('.galery');
 
-// Объединение обработчиков Оверлея и закрытие popup при клике на крестик
-const popupList = document.querySelectorAll('.popup');
-popupList.forEach((popup) => {
-  popup.addEventListener('click', (evt) => {
-    if (evt.target.classList.contains('popup_opened')) {
-      closePopup(popup);
-    }
-    if (evt.target.classList.contains('popup__close')) {
-      closePopup(popup)
-    }
-  })
-})
+// // Берем форму popup картинок
+// const addImageForm = document.querySelector('.popup_type_addImage .popup__form-image');
 
-// Функция которая заполняет Инпуты содержимым из профиля, имя и профессия (перед валидацией)
-export const initEditForm = () => {
-  popupInputTypeName.value = profileName.textContent;
-  popupInputTypeProfession.value = profileProfession.textContent;
-};
+// // Объединение обработчиков Оверлея и закрытие popup при клике на крестик
+// const popupList = document.querySelectorAll('.popup');
+// popupList.forEach((popup) => {
+//   popup.addEventListener('click', (evt) => {
+//     if (evt.target.classList.contains('popup_opened')) {
+//       closePopup(popup);
+//     }
+//     if (evt.target.classList.contains('popup__close')) {
+//       closePopup(popup)
+//     }
+//   })
+// })
 
-// Функция закрытия popup по клавише Esc.
-function closeByEscape(evt) {
-  if (evt.key === 'Escape') {
-    const openedPopup = document.querySelector('.popup_opened');
-    closePopup(openedPopup);
-  }
-}
+// // Функция которая заполняет Инпуты содержимым из профиля, имя и профессия (перед валидацией)
+// export const initEditForm = () => {
+//   popupInputTypeName.value = profileName.textContent;
+//   popupInputTypeProfession.value = profileProfession.textContent;
+// };
 
-//  Функции для открытия и закрытия popup profile
-export function openPopup(popupElement) {
-  popupElement.classList.add('popup_opened');
-  document.addEventListener('keydown', closeByEscape);
-}
+// // Функция закрытия popup по клавише Esc.
+// function closeByEscape(evt) {
+//   if (evt.key === 'Escape') {
+//     const openedPopup = document.querySelector('.popup_opened');
+//     closePopup(openedPopup);
+//   }
+// }
 
-function closePopup(popupElement) {
-  popupElement.classList.remove('popup_opened');
-  document.removeEventListener('keydown', closeByEscape);
-}
+// //  Функции для открытия и закрытия popup profile
+// export function openPopup(popupElement) {
+//   popupElement.classList.add('popup_opened');
+//   document.addEventListener('keydown', closeByEscape);
+// }
+
+// function closePopup(popupElement) {
+//   popupElement.classList.remove('popup_opened');
+//   document.removeEventListener('keydown', closeByEscape);
+// }
 
 
-//  Функция отправки формы (пока форму никуда не отправляем)
-function submitFormHandler(evt) {
-  evt.preventDefault();
-  // Вставляем новые значения в поля профиля имя и профессия
-  profileName.textContent = popupInputTypeName.value;
-  profileProfession.textContent = popupInputTypeProfession.value;
-  closePopup(popupProfile);
-}
+// //  Функция отправки формы (пока форму никуда не отправляем)
+// function submitFormHandler(evt) {
+//   evt.preventDefault();
+//   // Вставляем новые значения в поля профиля имя и профессия
+//   profileName.textContent = popupInputTypeName.value;
+//   profileProfession.textContent = popupInputTypeProfession.value;
+//   closePopup(popupProfile);
+// }
 
 // // Получаем содержимое template обращаясь к св-ву content
 // const photoTemplate = document.querySelector('.photo-template').content;
@@ -115,9 +139,7 @@ function submitFormHandler(evt) {
 
 // Перебираем массив и добавляем карточку
 initialCards.forEach((item) => {
-  const card = new Card(item, '.photo-template');
-  const cardElement = card.generateCard();
-  photoContainer.prepend(cardElement);
+  createCard(item);
 });
 
 // Функция для создания карточки
@@ -143,6 +165,8 @@ function createObjectHandler(evt) {
   addBtnCard.disabled = true;
   addBtnCard.classList.add('popup__submit-button_inactive');
   closePopup(popupAddImage);
+
+
 };
 
 //  Создаем слушателя для кнопок
