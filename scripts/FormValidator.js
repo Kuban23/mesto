@@ -22,7 +22,7 @@ export class FormValidator {
     inputElement.classList.add(this._inputErrorClass);
     // Показываем сообщение об ошибке
     errorElement.classList.add(this._errorClass);
-    // errorElement.textContent = errorMassage; // не знаю
+    errorElement.textContent = inputElement.validationMessage;
   };
 
   // Функция, которая удаляет класс с ошибкой
@@ -38,7 +38,7 @@ export class FormValidator {
   // Функция, которая проверяет валидность Input
   _isValid(inputElement) {
     if (!inputElement.validity.valid) {
-      this._showInputError(inputElement);
+      this._showInputError(inputElement, inputElement.validationMessage);
     }
     else {
       this._hideInputError(inputElement);
@@ -58,18 +58,14 @@ export class FormValidator {
 
   // Добавление обработчиков всем Инпутам
   _setEventListeners() {
-    // разбиваем конфиг на составляющие, чтобы передать нужные свойства в функции
-    // не знаю const { inputSelector, submitButtonSelector, inactiveButtonClass, inputErrorClass, errorClass } = config;
-
     // Находим все Инпуты и помещаем их в массив
     const inputList = Array.from(this._element.querySelectorAll(this._inputSelector));
-
     // Вызываем функцию чтобы при открытии popup кнопка была не активной
     this._toggleButtonState();
 
     // Перебираем массив с коллекцией и добавим каждому Инпуту обработчик
     inputList.forEach((inputElement) => {
-      inputElement.addEventListener('input', function () {
+      inputElement.addEventListener('input', () => {
         this._isValid(inputElement);
 
         this._toggleButtonState();
@@ -80,8 +76,6 @@ export class FormValidator {
 
   // Добавление обработчиков всем Формам
   enableValidation() {
-    // Берем данные из конфига
-    // не знаю const { formSelector, inputSelector, submitButtonSelector, inactiveButtonClass, inputErrorClass, errorClass } = config;
     const formList = Array.from(document.querySelectorAll(this._formSelector));
     formList.forEach((formElement) => {
       formElement.addEventListener('submit', function (evt) {
@@ -92,9 +86,6 @@ export class FormValidator {
       this._setEventListeners();
     });
   };
-
-
-
 
 };
 
