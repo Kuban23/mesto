@@ -7,6 +7,7 @@ export class Card {
     this._imageAlt = data.name;
     this._link = data.link;
     this._cardTemplate = cardTemplate;
+
   }
 
   // Забираем разметку из HTML  и клонируем элемент.
@@ -18,10 +19,13 @@ export class Card {
   // Готовим карточку к публикации.
   generateCard() {
     this._element = this._getTemplate(); //Запишем разметку в приватное поле _element
+    this._likeButton = this._element.querySelector('.photo__like');
+    this._trashButton = this._element.querySelector('.photo__trash');
+    this._photoImageTemplate = this._element.querySelector('.photo__image');
     this._setEventListeners();
     // Добавим данные
-    this._element.querySelector('.photo__image').src = this._link;
-    this._element.querySelector('.photo__image').alt = this._name;
+    this._photoImageTemplate.src = this._link;
+    this._photoImageTemplate.alt = this._name;
     this._element.querySelector('.photo__text').textContent = this._name;
 
     return this._element;
@@ -29,12 +33,12 @@ export class Card {
 
   // Реализация лайков
   _addLike() {
-    this._element.querySelector('.photo__like').classList.toggle('photo__like_active');
+    this._likeButton.classList.toggle('photo__like_active');
   }
 
   // Реализация удаления карточек
   _deleteCard() {
-    this._element.querySelector('.photo__trash').closest('.photo').remove();
+    this._trashButton.closest('.photo').remove();
   }
 
   // Реализация просмотра картинок
@@ -48,12 +52,12 @@ export class Card {
 
   _setEventListeners() {
     // Реализация клика лайка
-    this._element.querySelector('.photo__like').addEventListener('click', () => {
+    this._likeButton.addEventListener('click', () => {
       this._addLike();
     })
 
     // Реализация клика удаления карточки
-    this._element.querySelector('.photo__trash').addEventListener('click', () => {
+    this._trashButton.addEventListener('click', () => {
       this._deleteCard();
     })
 
@@ -61,7 +65,6 @@ export class Card {
     this._element.querySelector('.photo__image').addEventListener('click', (evt) => {
       this._popupImageViewing(evt);
     })
-
   }
 
 

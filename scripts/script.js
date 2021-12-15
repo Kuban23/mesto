@@ -7,28 +7,16 @@ import {
   addBtnCard,
   popupProfile,
   popupAddImage,
-  // popupImageViewing,
-  // popupInputTypeName,
-  // popupInputTypeProfession,
   popupInputaddImageTitle,
   popupInputaddImageLink,
-  // profileName,
-  // profileProfession,
   photoContainer,
   addImageForm,
-  // popupList,
   initEditForm,
-  // closeByEscape,
   openPopup,
   closePopup,
   submitFormHandler,
   objForm
 } from './parts.js';
-
-// Перебираем массив и добавляем карточку
-initialCards.forEach((item) => {
-  createCard(item);
-});
 
 // Функция для создания карточки
 function createCard(cardInfo) {
@@ -36,6 +24,11 @@ function createCard(cardInfo) {
   const cardElement = card.generateCard();
   photoContainer.prepend(cardElement);
 }
+
+// Перебираем массив и добавляем карточку
+initialCards.forEach((item) => {
+  createCard(item);
+});
 
 // Функция для создания карточки ч/з popup
 function createObjectHandler(evt) {
@@ -45,13 +38,7 @@ function createObjectHandler(evt) {
     name: popupInputaddImageTitle.value,
     link: popupInputaddImageLink.value
   };
-
   createCard(cardInfo);
-  popupInputaddImageTitle.value = '';
-  popupInputaddImageLink.value = '';
-
-  addBtnCard.disabled = true;
-  addBtnCard.classList.add('popup__submit-button_inactive');
   closePopup(popupAddImage);
 };
 
@@ -62,12 +49,15 @@ editBtnProfile.addEventListener('click', function () {      // Открывае�
 
 addBtnProfile.addEventListener('click', function () {  // Открываем popup для добавления картинок
   openPopup(popupAddImage);
+  // Вызываем на объекте imageFormValidator функцию resetValidation для очищения инпутов
+  imageFormValidator.resetValidation();
 });
 
 profileForm.addEventListener('submit', submitFormHandler); // Кпнопка сохранения popup profile (отправка формы)
 
 addImageForm.addEventListener('submit', createObjectHandler); // Кпнопка добавления карточки
 
+//
 initEditForm();
 
 // Включаем валидацию popup профиля
