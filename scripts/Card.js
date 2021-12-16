@@ -2,17 +2,16 @@ import { openPopup } from './parts.js';
 import { popupImageViewing } from './parts.js';
 
 export class Card {
-  constructor(data, cardTemplate) {
+  constructor(data, selector) {
     this._name = data.name;
     this._imageAlt = data.name;
     this._link = data.link;
-    this._cardTemplate = cardTemplate;
-
+    this._selector = selector;
   }
 
   // Забираем разметку из HTML  и клонируем элемент.
   _getTemplate() {
-    this._element = document.querySelector(this._cardTemplate).content.querySelector('.photo').cloneNode(true);
+    this._element = document.querySelector(this._selector).content.querySelector('.photo').cloneNode(true);
     return this._element;
   }
 
