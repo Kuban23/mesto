@@ -31,11 +31,8 @@ export const addImageForm = document.querySelector('.popup_type_addImage .popup_
 export const popupList = document.querySelectorAll('.popup');
 popupList.forEach((popup) => {
   popup.addEventListener('click', (evt) => {
-    if (evt.target.classList.contains('popup_opened')) {
+    if (evt.target.classList.contains('popup_opened') || evt.target.classList.contains('popup__close')) {
       closePopup(popup);
-    }
-    if (evt.target.classList.contains('popup__close')) {
-      closePopup(popup)
     }
   })
 })
