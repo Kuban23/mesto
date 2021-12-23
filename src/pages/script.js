@@ -1,6 +1,6 @@
-import { Card } from './Card.js';
-import { FormValidator } from './FormValidator.js';
-import { initialCards } from './initialCards.js';
+import { Card } from '../components/Card.js';
+import { FormValidator } from '../components/FormValidator.js';
+import { initialCards } from '../parts/initialCards.js';
 import {
   editBtnProfile,
   profileForm,
@@ -17,7 +17,7 @@ import {
   closePopup,
   submitFormHandler,
   objForm
-} from './parts.js';
+} from '../parts/constants.js';
 
 // Функция для создания карточки
 function createCard(cardInfo) {

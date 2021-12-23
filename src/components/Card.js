@@ -1,5 +1,5 @@
-import { openPopup } from './parts.js';
-import { popupImageViewing } from './parts.js';
+import { openPopup } from '../parts/constants.js';
+import { popupImageViewing } from '../parts/constants.js';
 
 export class Card {
   constructor(data, selector) {
