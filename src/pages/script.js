@@ -1,6 +1,7 @@
 import { Card } from '../components/Card.js';
 import { FormValidator } from '../components/FormValidator.js';
 import { initialCards } from '../parts/initialCards.js';
+import Section from '../components/Section.js';
 import {
   editBtnProfile,
   profileForm,
@@ -19,17 +20,17 @@ import {
   objForm
 } from '../parts/constants.js';
 
-// Функция для создания карточки
-function createCard(cardInfo) {
-  const card = new Card(cardInfo, '.photo-template');
-  const cardElement = card.generateCard();
-  photoContainer.prepend(cardElement);
-}
+// // Функция для создания карточки
+// function createCard(cardInfo) {
+//   const card = new Card(cardInfo, '.photo-template');
+//   const cardElement = card.generateCard();
+//   photoContainer.prepend(cardElement);
+// }
 
-// Перебираем массив и добавляем карточку
-initialCards.forEach((item) => {
-  createCard(item);
-});
+// // Перебираем массив и добавляем карточку
+// initialCards.forEach((item) => {
+//   createCard(item);
+// });
 
 // Функция для создания карточки ч/з popup
 function createObjectHandler(evt) {
@@ -68,3 +69,13 @@ profFormValidator.enableValidation();
 // Включаем валидацию popup добавление карточки
 const imageFormValidator = new FormValidator(objForm, addImageForm);
 imageFormValidator.enableValidation();
+
+const defaultCardList = new Section({ items: initialCards, renderer: (cardItem) => {
+  const card = new Card(cardItem, '.photo-template');
+  const cardElement = card.generateCard();
+  defaultCardList.addItem(cardElement);
+} }, photoContainer);
+
+
+
+defaultCardList.renderItems();

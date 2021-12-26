@@ -22,7 +22,7 @@ export const profileName = document.querySelector('.profile__name');
 export const profileProfession = document.querySelector('.profile__profession');
 
 // Находим блок photo
-export const photoContainer = document.querySelector('.galery');
+export const photoContainer = '.galery';
 
 // Берем форму popup картинок
 export const addImageForm = document.querySelector('.popup_type_addImage .popup__form-image');

@@ -7,8 +7,8 @@ export default class Section {
   }
 
   // Метод отрисовывает все элементы
-  renderItems(items) {
-    items.forEach((item) => {
+  renderItems() {
+    this._initialArray.forEach((item) => {
       this._renderer(item);
     });
   }
