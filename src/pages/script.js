@@ -70,12 +70,12 @@ profFormValidator.enableValidation();
 const imageFormValidator = new FormValidator(objForm, addImageForm);
 imageFormValidator.enableValidation();
 
-const defaultCardList = new Section({ items: initialCards, renderer: (cardItem) => {
-  const card = new Card(cardItem, '.photo-template');
-  const cardElement = card.generateCard();
-  defaultCardList.addItem(cardElement);
-} }, photoContainer);
-
-
+const defaultCardList = new Section({
+  items: initialCards, renderer: (cardItem) => {
+    const card = new Card(cardItem, '.photo-template');
+    const cardElement = card.generateCard();
+    defaultCardList.addItem(cardElement);
+  }
+}, photoContainer);
 
 defaultCardList.renderItems();
