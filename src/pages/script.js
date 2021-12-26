@@ -2,6 +2,7 @@ import { Card } from '../components/Card.js';
 import { FormValidator } from '../components/FormValidator.js';
 import { initialCards } from '../parts/initialCards.js';
 import Section from '../components/Section.js';
+import PopupWithImage from '../components/PopupWithImage.js';
 import {
   editBtnProfile,
   profileForm,
@@ -20,12 +21,19 @@ import {
   objForm
 } from '../parts/constants.js';
 
-// // Функция для создания карточки
+ // Функция для создания карточки
+ function createCard(link, name){
+ openPopupWithImage.open(link, name);
+ }
+
 // function createCard(cardInfo) {
 //   const card = new Card(cardInfo, '.photo-template');
 //   const cardElement = card.generateCard();
 //   photoContainer.prepend(cardElement);
 // }
+
+
+
 
 // // Перебираем массив и добавляем карточку
 // initialCards.forEach((item) => {
@@ -70,6 +78,7 @@ profFormValidator.enableValidation();
 const imageFormValidator = new FormValidator(objForm, addImageForm);
 imageFormValidator.enableValidation();
 
+// Добавляем картинку на страницу
 const defaultCardList = new Section({
   items: initialCards, renderer: (cardItem) => {
     const card = new Card(cardItem, '.photo-template');
@@ -79,3 +88,8 @@ const defaultCardList = new Section({
 }, photoContainer);
 
 defaultCardList.renderItems();
+
+// открываем popup
+const openPopupWithImage = new PopupWithImage('.popup_type_image');
+
+
