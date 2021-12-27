@@ -2,11 +2,12 @@ import { openPopup } from '../parts/constants.js';
 import { popupImageViewing } from '../parts/constants.js';
 
 export class Card {
-  constructor(data, selector) {
+  constructor(data, selector, handleCardClick) {
     this._name = data.name;
     this._imageAlt = data.name;
     this._link = data.link;
     this._selector = selector;
+    this._handleCardClick = handleCardClick;
   }
 
   // Забираем разметку из HTML  и клонируем элемент.
@@ -30,6 +31,7 @@ export class Card {
     return this._element;
   }
 
+
   // Реализация лайков
   _addLike() {
     this._likeButton.classList.toggle('photo__like_active');
@@ -40,7 +42,7 @@ export class Card {
     this._trashButton.closest('.photo').remove();
   }
 
-  // Реализация просмотра картинок
+  //Реализация просмотра картинок
   _popupImageViewing(evt) {
     openPopup(popupImageViewing);
     popupImageViewing.querySelector('.popup__image').src = evt.target.src;
@@ -64,7 +66,14 @@ export class Card {
     this._element.querySelector('.photo__image').addEventListener('click', (evt) => {
       this._popupImageViewing(evt);
     })
+
+    //Открываем popup с картинкой приклике на нее.
+    // this._element = document.querySelector('.photo__image').addEventListener('click', () => {
+    //   this._handleCardClick(this._name, this._link);
+    // })
+
   }
+
 
 
 };
