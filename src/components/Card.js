@@ -1,8 +1,8 @@
-import { openPopup } from '../parts/constants.js';
-import { popupImageViewing } from '../parts/constants.js';
+// import { openPopup } from '../parts/constants.js';
+// import { popupImageViewing } from '../parts/constants.js';
 
 export class Card {
-  constructor(data, selector, handleCardClick) {
+  constructor({data, handleCardClick}, selector) {
     this._name = data.name;
     this._imageAlt = data.name;
     this._link = data.link;
@@ -48,7 +48,6 @@ export class Card {
     popupImageViewing.querySelector('.popup__image').src = evt.target.src;
     popupImageViewing.querySelector('.popup__image').alt = evt.target.alt;
     popupImageViewing.querySelector('.popup__title-image').textContent = evt.target.alt;
-
   }
 
   _setEventListeners() {
@@ -63,14 +62,14 @@ export class Card {
     })
 
     // Реализация клика просмотра картинок
-    this._element.querySelector('.photo__image').addEventListener('click', (evt) => {
-      this._popupImageViewing(evt);
-    })
+    // this._element.querySelector('.photo__image').addEventListener('click', (evt) => {
+    //   this._popupImageViewing(evt);
+    // })
 
     //Открываем popup с картинкой приклике на нее.
-    // this._element = document.querySelector('.photo__image').addEventListener('click', () => {
-    //   this._handleCardClick(this._name, this._link);
-    // })
+    this._photoImageTemplate.addEventListener('click', () => {
+      this._handleCardClick();
+    })
 
   }
 

@@ -44,12 +44,12 @@ export const initEditForm = () => {
 };
 
 // Функция закрытия popup по клавише Esc.
-export function closeByEscape(evt) {
-  if (evt.key === 'Escape') {
-    const openedPopup = document.querySelector('.popup_opened');
-    closePopup(openedPopup);
-  }
-}
+// export function closeByEscape(evt) {
+//   if (evt.key === 'Escape') {
+//     const openedPopup = document.querySelector('.popup_opened');
+//     closePopup(openedPopup);
+//   }
+// }
 
 //  Функции для открытия и закрытия popup profile
 export function openPopup(popupElement) {
@@ -63,14 +63,14 @@ export function closePopup(popupElement) {
 }
 
 
-//  Функция отправки формы (пока форму никуда не отправляем)
-export function submitFormHandler(evt) {
-  evt.preventDefault();
-  // Вставляем новые значения в поля профиля имя и профессия
-  profileName.textContent = popupInputTypeName.value;
-  profileProfession.textContent = popupInputTypeProfession.value;
-  closePopup(popupProfile);
-}
+ // Функция отправки формы (пока форму никуда не отправляем)
+// export function submitFormHandler(evt) {
+//   evt.preventDefault();
+//   // Вставляем новые значения в поля профиля имя и профессия
+//   profileName.textContent = popupInputTypeName.value;
+//   profileProfession.textContent = popupInputTypeProfession.value;
+//   closePopup(popupProfile);
+// }
 
 export const objForm = {
   formSelector: '.popup__form',

@@ -4,6 +4,8 @@ import { initialCards } from '../parts/initialCards.js';
 import Section from '../components/Section.js';
 import PopupWithImage from '../components/PopupWithImage.js';
 import PopupWithForm from '../components/PopupWithForm.js';
+import UserInfo from '../components/UserInfo.js';
+
 import {
   editBtnProfile,
   profileForm,
@@ -16,63 +18,168 @@ import {
   photoContainer,
   addImageForm,
   initEditForm,
-  openPopup,
-  closePopup,
-  submitFormHandler,
+  //openPopup,
+  //closePopup,
+  //submitFormHandler,
   objForm,
   profileName,
   profileProfession,
   popupInputTypeName,
-  popupInputTypeProfession
+  popupInputTypeProfession,
 } from '../parts/constants.js';
 
-// открываем popup
+// Popup с картинкой
 const openPopupWithImage = new PopupWithImage('.popup_type_image');
+
+// Данные о пользователе
+const profileUserInfo = new UserInfo(
+  {
+    nameSelector: '.profile__name',
+    professionSelector: '.profile__profession'
+  }
+);
 
 
 // Функция для создания карточки
-const createCard = (cardItem, selector,
-  handleCardClick = (link, name) => {
-    openPopupWithImage.open(link, name);
-  }) => {
-  const card = new Card(cardItem, selector, handleCardClick)
+
+// -----------------------------------------------------------------------------------
+// function createCard(cardInfo) {
+//   const card = new Card(cardInfo, '.photo-template');
+//   const cardElement = card.generateCard();
+//   photoContainer.prepend(cardElement);
+// }
+
+//Перебираем массив и добавляем карточку
+// initialCards.forEach((item) => {
+//   createCard(item);
+// });
+
+
+//Добавляем картинку на страницу
+// const defaultCardList = new Section({
+//   items: initialCards, renderer: (cardItem) => {
+//     const card = new Card(cardItem, '.photo-template');
+//     const cardElement = card.generateCard();
+//     defaultCardList.addItem(cardElement);
+//   }
+// }, photoContainer);
+
+// Отрисовываем все элементы
+// defaultCardList.renderItems();
+// -----------------------------------------------------------------------------------
+// const createCard = ({ link, name }, selector,
+//   handleCardClick = (link, name) => {
+//     openPopupWithImage.open(link, name);
+//   }) => {
+//   const card = new Card({ link, name }, selector, handleCardClick)
+//   return card.generateCard();
+// };
+
+
+function createCard(cardItem) {
+  const card = new Card({
+    data: cardItem,
+    handleCardClick: () => { openPopupWithImage.open({ link: cardItem.link, name: cardItem.name }) }
+  }, '.photo-template');
+
   return card.generateCard();
-};
+}
+
 
 // Добавляем картинки на страницу
-const defaultCardList = new Section(
+// const defaultCardList = new Section(
+//   {
+//     items: initialCards, renderer: (cardItem) => {
+//       const defaultCard = createCard(cardItem, '.photo-template');
+//       defaultCardList.addItem(defaultCard);
+//     }
+//   }, photoContainer
+// );
+
+// // отрисовываем все элементы
+// defaultCardList.renderItems();
+
+const сardList = new Section(
   {
-    items: initialCards, renderer: (cardItem) => {
-      const defaultCard = createCard(cardItem, '.photo-template');
-      defaultCardList.addItem(defaultCard);
+    items: initialCards,
+    renderer: (cardItem) => {
+      сardList.addItem(createCard(cardItem));
     }
   }, photoContainer
 );
-
 // отрисовываем все элементы
-defaultCardList.renderItems();
+сardList.renderItems();
+
+
+
 
 // Создаем карточки ч/з popup
-const openPopupAddImage = new PopupWithForm(
-  '.popup_type_addImage',
-  (cardItem) => {
-    const newImage = createCard(cardItem, '.photo-template');
-    defaultCardList.addItem(newImage);
+
+// const openPopupAddImage = new PopupWithForm(
+//   '.popup_type_addImage',
+//   (cardItem) => {
+//     const newImage = createCard(cardItem, '.photo-template');
+//     defaultCardList.addItem(newImage);
+//     openPopupAddImage.close();
+//   }
+// );
+
+const openPopupAddImage = new PopupWithForm({
+  selectorPopup: '.popup_type_addImage',
+  handleFormSubmit: (cardItem) => {
+    const newImage = createCard(cardItem);
+    сardList.addItem(newImage);
     openPopupAddImage.close();
   }
-);
+});
 
-// Редактируем профиль, присваиваем инпутам данные полученные из инпутов
-const openPopupProfile = new PopupWithForm(
-  '.popup_type_profile',
-  (evt) => {
-    evt.preventDefault();
-    profileName.textContent = popupInputTypeName.value;
-    profileProfession.textContent = popupInputTypeProfession.value;
+
+
+
+
+
+function createObjectHandler(evt) {
+  evt.preventDefault();
+  //Создали объект который получает данные из Input добавления карточки
+  const cardInfo = {
+    name: popupInputaddImageTitle.value,
+    link: popupInputaddImageLink.value
+  };
+  createCard(cardInfo);
+  //closePopup(popupAddImage);
+  openPopupAddImage.close();
+};
+
+
+// Popup редактируем профиль
+
+// const openPopupProfile = new PopupWithForm(
+//   '.popup_type_profile',
+//   ({ name, profession }) => {
+//     profileUserInfo.setUserInfo({ name, profession });
+//     openPopupProfile.close();
+//   }
+// );
+
+const openPopupProfile = new PopupWithForm({
+  selectorPopup: '.popup_type_profile',
+  handleFormSubmit: ({ name, profession }) => {
+    profileUserInfo.setUserInfo({ name, profession })
     openPopupProfile.close();
   }
-);
+});
 
+
+
+
+// Функция отправки формы (пока форму никуда не отправляем)
+function submitFormHandler(evt) {
+  evt.preventDefault();
+  // Вставляем новые значения в поля профиля имя и профессия
+  profileName.textContent = popupInputTypeName.value;
+  profileProfession.textContent = popupInputTypeProfession.value;
+  openPopupProfile.close();
+}
 
 // function createCard() {
 //   handleCardClick = (link, name) => {
@@ -81,16 +188,8 @@ const openPopupProfile = new PopupWithForm(
 // }
 
 
-// function createCard(cardInfo) {
-//   const card = new Card(cardInfo, '.photo-template');
-//   const cardElement = card.generateCard();
-//   photoContainer.prepend(cardElement);
-// }
 
-// Перебираем массив и добавляем карточку
-// initialCards.forEach((item) => {
-//   createCard(item);
-// });
+
 
 // Функция для создания карточки ч/з popup
 // function createObjectHandler(evt) {
@@ -107,23 +206,13 @@ const openPopupProfile = new PopupWithForm(
 // };
 
 
-function createObjectHandler(evt) {
-  // openPopupWithImage.setEventListeners();
-  // evt.preventDefault();
-  // Создали объект который получает данные из Input добавления карточки
-  const cardInfo = {
-    name: popupInputaddImageTitle.value,
-    link: popupInputaddImageLink.value
-  };
-  createCard(cardInfo);
-  closePopup(popupAddImage);
-};
 
 //  Создаем слушателей для кнопок
 
 // Открываем popup profile
 editBtnProfile.addEventListener('click', function () {
   // openPopup(popupProfile);
+  initEditForm();
   openPopupProfile.open();
 });
 
@@ -156,28 +245,11 @@ profFormValidator.enableValidation();
 const imageFormValidator = new FormValidator(objForm, addImageForm);
 imageFormValidator.enableValidation();
 
-// Добавляем картинку на страницу
-// const defaultCardList = new Section({
-//   items: initialCards, renderer: (cardItem) => {
-//     const card = new Card(cardItem, '.photo-template');
-//     const cardElement = card.generateCard();
-//     defaultCardList.addItem(cardElement);
-//   }
-// }, photoContainer);
-
-// // отрисовываем все элементы
-// defaultCardList.renderItems();
 
 
 
-//
-// const profileUserInfo = new UserInfo(
-//   {
-//     nameSelector: '.profile__name',
-//     professionSelector: '.profile__profession"'
-//   }
-// );
 
 openPopupWithImage.setEventListeners();
 openPopupProfile.setEventListeners();
+openPopupAddImage.setEventListeners();
 
