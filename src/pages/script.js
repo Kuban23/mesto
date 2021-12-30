@@ -229,12 +229,12 @@ const openPopupProfile = new PopupWithForm({
 // Открываем popup profile
 editBtnProfile.addEventListener('click', () => {
   // openPopup(popupProfile);
-  initEditForm();
+  //initEditForm();
   openPopupProfile.open();
-  // Получаем объект с данными
-  // const getUserInfo = profileUserInfo.getUserInfo();
-  // popupInputTypeName.value = getUserInfo.name;
-  // popupInputTypeProfession.value = getUserInfo.profession;
+  //Получаем объект с данными
+  const getUserInfo = profileUserInfo.getUserInfo();
+  popupInputTypeName.value = getUserInfo.name;
+  popupInputTypeProfession.value = getUserInfo.profession;
 });
 
 // Открываем popup для добавления картинок
