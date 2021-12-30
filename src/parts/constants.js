@@ -52,15 +52,15 @@ export const initEditForm = () => {
 // }
 
 //  Функции для открытия и закрытия popup profile
-export function openPopup(popupElement) {
-  popupElement.classList.add('popup_opened');
-  document.addEventListener('keydown', closeByEscape);
-}
+// export function openPopup(popupElement) {
+//   popupElement.classList.add('popup_opened');
+//   document.addEventListener('keydown', closeByEscape);
+// }
 
-export function closePopup(popupElement) {
-  popupElement.classList.remove('popup_opened');
-  document.removeEventListener('keydown', closeByEscape);
-}
+// export function closePopup(popupElement) {
+//   popupElement.classList.remove('popup_opened');
+//   document.removeEventListener('keydown', closeByEscape);
+// }
 
 
  // Функция отправки формы (пока форму никуда не отправляем)

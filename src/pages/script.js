@@ -79,7 +79,9 @@ const profileUserInfo = new UserInfo(
 function createCard(cardItem) {
   const card = new Card({
     data: cardItem,
-    handleCardClick: () => { openPopupWithImage.open({ link: cardItem.link, name: cardItem.name }) }
+    handleCardClick: () => {
+      openPopupWithImage.open(cardItem.link, cardItem.name);
+    }
   }, '.photo-template');
 
   return card.generateCard();
@@ -87,6 +89,7 @@ function createCard(cardItem) {
 
 
 // Добавляем картинки на страницу
+
 // const defaultCardList = new Section(
 //   {
 //     items: initialCards, renderer: (cardItem) => {
@@ -115,40 +118,52 @@ const сardList = new Section(
 
 // Создаем карточки ч/з popup
 
-// const openPopupAddImage = new PopupWithForm(
-//   '.popup_type_addImage',
-//   (cardItem) => {
-//     const newImage = createCard(cardItem, '.photo-template');
-//     defaultCardList.addItem(newImage);
+// const openPopupAddImage = new PopupWithForm({
+//   selectorPopup: '.popup_type_addImage',
+//   handleFormSubmit: (cardItem) => {
+//     const newImage = createCard(cardItem);
+//     сardList.addItem(newImage);
 //     openPopupAddImage.close();
 //   }
-// );
+// });
 
 const openPopupAddImage = new PopupWithForm({
   selectorPopup: '.popup_type_addImage',
-  handleFormSubmit: (cardItem) => {
-    const newImage = createCard(cardItem);
+  handleFormSubmit: () => {
+    const cardInfo = {
+          name: popupInputaddImageTitle.value,
+          link: popupInputaddImageLink.value
+        };
+    const newImage = createCard(cardInfo);
     сardList.addItem(newImage);
     openPopupAddImage.close();
   }
 });
 
 
+// function createObjectHandler(evt) {
+//   evt.preventDefault();
+//   // Создали объект который получает данные из Input добавления карточки
+//   const cardInfo = {
+//     name: popupInputaddImageTitle.value,
+//     link: popupInputaddImageLink.value
+//   };
+//   createCard(cardInfo);
+//   closePopup(popupAddImage);
+// };
 
 
-
-
-function createObjectHandler(evt) {
-  evt.preventDefault();
-  //Создали объект который получает данные из Input добавления карточки
-  const cardInfo = {
-    name: popupInputaddImageTitle.value,
-    link: popupInputaddImageLink.value
-  };
-  createCard(cardInfo);
-  //closePopup(popupAddImage);
-  openPopupAddImage.close();
-};
+// function createObjectHandler(evt) {
+//   evt.preventDefault();
+//   //Создали объект который получает данные из Input добавления карточки
+//   const cardInfo = {
+//     name: popupInputaddImageTitle.value,
+//     link: popupInputaddImageLink.value
+//   };
+//   createCard(cardInfo);
+//   //closePopup(popupAddImage);
+//   openPopupAddImage.close();
+// };
 
 
 // Popup редактируем профиль
@@ -165,6 +180,8 @@ const openPopupProfile = new PopupWithForm({
   selectorPopup: '.popup_type_profile',
   handleFormSubmit: ({ name, profession }) => {
     profileUserInfo.setUserInfo({ name, profession })
+    profileName.textContent = popupInputTypeName.value;
+    profileProfession.textContent = popupInputTypeProfession.value;
     openPopupProfile.close();
   }
 });
@@ -173,13 +190,13 @@ const openPopupProfile = new PopupWithForm({
 
 
 // Функция отправки формы (пока форму никуда не отправляем)
-function submitFormHandler(evt) {
-  evt.preventDefault();
-  // Вставляем новые значения в поля профиля имя и профессия
-  profileName.textContent = popupInputTypeName.value;
-  profileProfession.textContent = popupInputTypeProfession.value;
-  openPopupProfile.close();
-}
+// function submitFormHandler(evt) {
+//   evt.preventDefault();
+//   // Вставляем новые значения в поля профиля имя и профессия
+//   profileName.textContent = popupInputTypeName.value;
+//   profileProfession.textContent = popupInputTypeProfession.value;
+//   openPopupProfile.close();
+// }
 
 // function createCard() {
 //   handleCardClick = (link, name) => {
@@ -210,10 +227,14 @@ function submitFormHandler(evt) {
 //  Создаем слушателей для кнопок
 
 // Открываем popup profile
-editBtnProfile.addEventListener('click', function () {
+editBtnProfile.addEventListener('click', () => {
   // openPopup(popupProfile);
   initEditForm();
   openPopupProfile.open();
+  // Получаем объект с данными
+  // const getUserInfo = profileUserInfo.getUserInfo();
+  // popupInputTypeName.value = getUserInfo.name;
+  // popupInputTypeProfession.value = getUserInfo.profession;
 });
 
 // Открываем popup для добавления картинок
@@ -229,12 +250,12 @@ addBtnProfile.addEventListener('click', function () {
 });
 
 // Кпнопка сохранения popup profile (отправка формы)
-profileForm.addEventListener('submit', submitFormHandler);
+// profileForm.addEventListener('submit', submitFormHandler);
 
 // Кпнопка добавления карточки
-addImageForm.addEventListener('submit', createObjectHandler);
+// addImageForm.addEventListener('submit', createObjectHandler);
 
-//
+
 initEditForm();
 
 // Включаем валидацию popup профиля

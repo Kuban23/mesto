@@ -43,12 +43,12 @@ export class Card {
   }
 
   //Реализация просмотра картинок
-  _popupImageViewing(evt) {
-    openPopup(popupImageViewing);
-    popupImageViewing.querySelector('.popup__image').src = evt.target.src;
-    popupImageViewing.querySelector('.popup__image').alt = evt.target.alt;
-    popupImageViewing.querySelector('.popup__title-image').textContent = evt.target.alt;
-  }
+  // _popupImageViewing(evt) {
+  //   openPopup(popupImageViewing);
+  //   popupImageViewing.querySelector('.popup__image').src = evt.target.src;
+  //   popupImageViewing.querySelector('.popup__image').alt = evt.target.alt;
+  //   popupImageViewing.querySelector('.popup__title-image').textContent = evt.target.alt;
+  // }
 
   _setEventListeners() {
     // Реализация клика лайка

@@ -17,7 +17,7 @@ export default class PopupWithForm extends Popup {
     return this._formInputValue;
   }
 
-  // Дополняем родительский метод setEventListeners, добавляет обработчик клика иконке закрытия и обработчик сабмита формы
+  // Дополняем родительский метод setEventListeners, добавляет обработчик сабмита формы
   setEventListeners() {
     super.setEventListeners();
     this._form.addEventListener('submit', (evt) => {
