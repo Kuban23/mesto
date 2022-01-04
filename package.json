@@ -1,0 +1,25 @@
+{
+  "name": "yandex_praktikum",
+  "version": "0.0.1",
+  "description": "### Описание: Проект создан по макету в Figma. Проект адаптивен для устройств с помощью медиазапросов.",
+  "main": "index.js",
+  "scripts": {
+    "build": "rd /s /q dist && webpack",
+    "dev": "webpack serve"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/Kuban23/mesto.git"
+  },
+  "author": "Esin Andrew",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/Kuban23/mesto/issues"
+  },
+  "homepage": "https://github.com/Kuban23/mesto#readme",
+  "devDependencies": {
+    "webpack": "^5.65.0",
+    "webpack-cli": "^4.9.1",
+    "webpack-dev-server": "^4.7.2"
+  }
+}
