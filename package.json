@@ -4,7 +4,7 @@
   "description": "### Описание: Проект создан по макету в Figma. Проект адаптивен для устройств с помощью медиазапросов.",
   "main": "index.js",
   "scripts": {
-    "build": "rd /s /q dist && webpack",
+    "build":  "rimraf dist && webpack --mode production",
     "dev": "webpack serve"
   },
   "repository": {
