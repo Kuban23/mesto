@@ -42,15 +42,7 @@ export class Card {
     this._trashButton.closest('.photo').remove();
   }
 
-  //Реализация просмотра картинок
-  // _popupImageViewing(evt) {
-  //   openPopup(popupImageViewing);
-  //   popupImageViewing.querySelector('.popup__image').src = evt.target.src;
-  //   popupImageViewing.querySelector('.popup__image').alt = evt.target.alt;
-  //   popupImageViewing.querySelector('.popup__title-image').textContent = evt.target.alt;
-  // }
-
-  _setEventListeners() {
+   _setEventListeners() {
     // Реализация клика лайка
     this._likeButton.addEventListener('click', () => {
       this._addLike();
@@ -61,12 +53,7 @@ export class Card {
       this._deleteCard();
     })
 
-    // Реализация клика просмотра картинок
-    // this._element.querySelector('.photo__image').addEventListener('click', (evt) => {
-    //   this._popupImageViewing(evt);
-    // })
-
-    //Открываем popup с картинкой приклике на нее.
+       //Открываем popup с картинкой приклике на нее.
     this._photoImageTemplate.addEventListener('click', () => {
       this._handleCardClick();
     })

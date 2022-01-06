@@ -81,6 +81,12 @@ export class FormValidator {
     this._buttonElement.classList.toggle(this._inactiveButtonClass, !isFormValid)
   };
 
+  // Валидация кнопки в profile
+  enableSubmitButton() {
+    this._buttonElement.disabled = false;
+    this._buttonElement.classList.remove(this._inactiveButtonClass);
+  }
+
   // Функция очистки инпутов формы в случае если форму не заполнили до конца.
   resetValidation() {
 
