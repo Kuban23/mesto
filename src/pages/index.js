@@ -16,15 +16,14 @@ import {
   popupInputaddImageLink,
   photoContainer,
   addImageForm,
-  initEditForm,
   objForm,
-  profileName,
-  profileProfession,
   popupInputTypeName,
   popupInputTypeProfession,
   popupImageViewing,
   profileNameSelector,
-  profileProfessionSelector
+  profileProfessionSelector,
+  popupProfileSelector,
+  popupAddImageSelector
 } from '../parts/constants.js';
 
 
@@ -72,7 +71,7 @@ const сardList = new Section(
 // Создаем карточки ч/з popup
 
 const openPopupAddImage = new PopupWithForm({
-  selectorPopup: '.popup_type_addImage',
+  selectorPopup: popupAddImageSelector,
   handleFormSubmit: () => {
     const cardInfo = {
       name: popupInputaddImageTitle.value,
@@ -85,40 +84,35 @@ const openPopupAddImage = new PopupWithForm({
 });
 
 
-
 // Popup редактируем профиль
 
 const openPopupProfile = new PopupWithForm({
-  selectorPopup: '.popup_type_profile',
+  selectorPopup: popupProfileSelector,
   handleFormSubmit: ({ name, profession }) => {
-    profileUserInfo.setUserInfo({ name, profession })
-    console.log(name)
-    // profileName.textContent = popupInputTypeName.value;
-    // profileProfession.textContent = popupInputTypeProfession.value;
+    profileUserInfo.setUserInfo({ name, profession });
     openPopupProfile.close();
   }
 });
+
+//  Создаем слушателей для кнопок
 
 openPopupWithImage.setEventListeners();
 openPopupProfile.setEventListeners();
 openPopupAddImage.setEventListeners();
 
 
-//  Создаем слушателей для кнопок
-
 // Открываем popup profile
 editBtnProfile.addEventListener('click', () => {
+  openPopupProfile.open();
   //Получаем объект с данными
   const getUserInfo = profileUserInfo.getUserInfo();
   popupInputTypeName.value = getUserInfo.name;
   popupInputTypeProfession.value = getUserInfo.profession;
-  
+
   // Если форма валидна, то кнопка активна
   profFormValidator.enableSubmitButton();
-  openPopupProfile.open();
+
 });
-
-
 
 // Открываем popup для добавления картинок
 addBtnProfile.addEventListener('click', function () {
@@ -138,7 +132,4 @@ const imageFormValidator = new FormValidator(objForm, addImageForm);
 imageFormValidator.enableValidation();
 
 
-// openPopupWithImage.setEventListeners();
-// openPopupProfile.setEventListeners();
-// openPopupAddImage.setEventListeners();
 

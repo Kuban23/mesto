@@ -7,18 +7,22 @@ export default class UserInfo {
 
   // Возвращает объект с данными пользователя
   getUserInfo() {
-    return {
+    const userInfo = {
       name: this._name.textContent,
-      profession: this._profession.textContent
+      profession: this._profession.textContent,
     };
+    return userInfo;
   }
 
   // Принимает новые данные пользователя и добавляет их на страницу
-  setUserInfo({name, profession}) {
+  setUserInfo({ name, profession }) {
     this._name.textContent = name;
     this._profession.textContent = profession;
 
   }
+
+
+
 
 
 }

@@ -6,37 +6,36 @@ export const addBtnCard = document.querySelector('.popup__submit-button_type_ima
 
 //  Находим popup
 export const popupProfile = document.querySelector('.popup_type_profile');
-export const popupAddImage = document.querySelector('.popup_type_addImage');
+//export const popupAddImage = document.querySelector('.popup_type_addImage');
 
 
 //  Находим Инпуты в popup Profile
 export const popupInputTypeName = document.querySelector('.popup__input_type_name');
 export const popupInputTypeProfession = document.querySelector('.popup__input_type_profession');
 
+
 // Находим Инпуты popup для добавления карточек
 export const popupInputaddImageTitle = document.querySelector('.popup__input_type_title');
 export const popupInputaddImageLink = document.querySelector('.popup__input_type_link');
 
 // Находим имя и профессию в блоке profile
-export const profileName = document.querySelector('.profile__name');
-export const profileProfession = document.querySelector('.profile__profession');
+// export const profileName = document.querySelector('.profile__name');
+// export const profileProfession = document.querySelector('.profile__profession');
+
+// Селекторы для классов
 export const profileNameSelector = '.profile__name';
 export const profileProfessionSelector = '.profile__profession';
-
+export const popupProfileSelector = '.popup_type_profile';
 //  Находим popup image
 export const popupImageViewing = '.popup_type_image';
-
 // Находим блок photo
 export const photoContainer = '.galery';
+// Находим popup Image
+export const popupAddImageSelector = '.popup_type_addImage';
+
 
 // Берем форму popup картинок
 export const addImageForm = document.querySelector('.popup_type_addImage .popup__form-image');
-
-// Функция которая заполняет Инпуты содержимым из профиля, имя и профессия (перед валидацией)
-export const initEditForm = () => {
-  popupInputTypeName.value = profileName.textContent;
-  popupInputTypeProfession.value = profileProfession.textContent;
-};
 
 
 export const objForm = {
@@ -47,5 +46,6 @@ export const objForm = {
   inputErrorClass: 'popup__input_type_error',
   errorClass: 'popup__input-error'
 };
+
 
 
