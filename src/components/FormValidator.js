@@ -89,7 +89,6 @@ export class FormValidator {
 
   // Функция очистки инпутов формы в случае если форму не заполнили до конца.
   resetValidation() {
-
     this._inputList.forEach((inputElement) => {
       this._hideInputError(inputElement);
       this._toggleButtonState();

@@ -32,7 +32,8 @@ export const popupImageViewing = '.popup_type_image';
 export const photoContainer = '.galery';
 // Находим popup Image
 export const popupAddImageSelector = '.popup_type_addImage';
-
+// Находим шаблон для карточек-фото
+export const photoTemplateSelector = '.photo-template';
 
 // Берем форму popup картинок
 export const addImageForm = document.querySelector('.popup_type_addImage .popup__form-image');

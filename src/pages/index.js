@@ -23,7 +23,8 @@ import {
   profileNameSelector,
   profileProfessionSelector,
   popupProfileSelector,
-  popupAddImageSelector
+  popupAddImageSelector,
+  photoTemplateSelector
 } from '../parts/constants.js';
 
 
@@ -48,7 +49,7 @@ function createCard(cardItem) {
     handleCardClick: () => {
       openPopupWithImage.open(cardItem.link, cardItem.name);
     }
-  }, '.photo-template');
+  }, photoTemplateSelector);
 
   return card.generateCard();
 }
@@ -104,6 +105,8 @@ openPopupAddImage.setEventListeners();
 // Открываем popup profile
 editBtnProfile.addEventListener('click', () => {
   openPopupProfile.open();
+  // Вызываем функцию resetValidation для очищения инпутов
+  profFormValidator.resetValidation();
   //Получаем объект с данными
   const getUserInfo = profileUserInfo.getUserInfo();
   popupInputTypeName.value = getUserInfo.name;
