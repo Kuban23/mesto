@@ -31,7 +31,7 @@
 @import url("../blocks/photo/__like/photo__like.css");
 @import url("../blocks/photo/__like/_active/photo__like_active.css");
 @import url("../blocks/photo/__trash/photo__trash.css");
-
+@import url("../blocks/photo/__like-sum/photo__like-sum.css");
 
 /* -- Блок footer---------------------------------------------------------------------------- */
 @import url("../blocks/footer/footer.css");
@@ -51,11 +51,13 @@
 @import url("../blocks/popup/__input-error/popup__input-error.css");
 @import url("../blocks/popup/__submit-button/popup__submit-button.css");
 @import url("../blocks/popup/__submit-button/_inactive/popup__submit-button_inactive.css");
+@import url("../blocks/popup/__submit-button/_type/popup__submit_type_delete.css");
 
 @import url("../blocks/popup/_type/popup_type_image.css");
 @import url("../blocks/popup/__container-image/popup__container-image.css");
 @import url("../blocks/popup/__group/popup__group.css");
 @import url("../blocks/popup/__image/popup__image.css");
 @import url("../blocks/popup/__title-image/popup__title-image.css");
+
 
 

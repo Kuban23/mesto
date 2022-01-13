@@ -51,11 +51,11 @@
       <form class="popup__form popup__form-prof" name="profile_form" novalidate>
         <button class="popup__close" type="button" aria-label="Кнопка закрытия окна"></button>
         <h2 class="popup__title">Редактировать профиль</h2>
-        <input class="popup__input popup__input_type_name" type="text" name="name" id="name-input"
-          placeholder="Имя" required minlength="2" maxlength="40">
+        <input class="popup__input popup__input_type_name" type="text" name="name" id="name-input" placeholder="Имя"
+          required minlength="2" maxlength="40">
         <span class="popup__input-error name-input-error"></span>
-        <input class="popup__input popup__input_type_profession" type="text" name="profession"
-          id="profession-input" placeholder="Профессия" required minlength="2" maxlength="200">
+        <input class="popup__input popup__input_type_profession" type="text" name="profession" id="profession-input"
+          placeholder="Профессия" required minlength="2" maxlength="200">
         <span class="popup__input-error profession-input-error"></span>
         <button class="popup__submit-button" type="submit" aria-label="Кнопка cохранить">Сохранить</button>
       </form>
@@ -94,6 +94,33 @@
     </div>
   </section>
 
+  <!-- Блок popup открытие попапа с аватаром ---------------------------------------------------------------------------->
+  <section class="popup popup_type_avatar">
+    <div class="popup__container">
+      <button class="popup__close" type="button" aria-label="Кнопка закрытия окна"></button>
+      <h2 class="popup__title">Обновить аватар</h2>
+      <form class="popup__form" name="form-avatar" novalidate>
+        <input class="popup__input popup__input_type_link popup__input-avatar" name="link-input" id="avatar-link-input"
+          type="url" placeholder="Ссылка на аватар" required>
+        <span class="popup__input-error avatar-link-input-error"></span>
+        <button class="popup__submit-button" type="submit" aria-label="Кнопка сохранить">Сохранить</button>
+      </form>
+    </div>
+  </section>
+
+  <!-- Блок popup открытие попапа для удаления карточки ---------------------------------------------------------------------------->
+  <section class="popup popup_type_delete">
+    <div class="popup__container">
+      <button class="popup__close" type="button" aria-label="Кнопка закрытия окна"></button>
+      <h2 class="popup__title">Вы уверены?</h2>
+      <form class="popup__form" name="form-delete" novalidate>
+        <button class="popup__submit-button popup__submit_type_delete" type="submit" aria-label="Кнопка да">Да</button>
+      </form>
+    </div>
+  </section>
+
+
+
 
   <!-- Шаблон для карточек-фото ---------------------------------------------------------------------------->
   <template class="photo-template">
@@ -103,13 +130,16 @@
         <img class="photo__image" src="#" alt="Изображен край или область России">
         <div class="photo__title">
           <h2 class="photo__text"></h2>
-          <button class="photo__like" type="button" aria-label="Кнопка для добавления лайков"></button>
+          <div class="photo__like-container">
+            <button class="photo__like" type="button" aria-label="Кнопка для добавления лайков"></button>
+            <p class="photo__like-sum">0</p>
+          </div>
         </div>
       </div>
     </div>
   </template>
 
 
- </body>
+</body>
 
 </html>
