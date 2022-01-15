@@ -34,12 +34,22 @@ export const photoContainer = '.galery';
 export const popupAddImageSelector = '.popup_type_addImage';
 // Находим шаблон для карточек-фото
 export const photoTemplateSelector = '.photo-template';
+// Находим popup Аватарки
+export const popupAddAvatarSelector = '.popup_type_avatar';
+// Находим popup подтверждения удаления
+export const popupDeleteSelector = '.popup_type_delete';
+
+
 
 // Берем форму popup картинок
 export const addImageForm = document.querySelector('.popup_type_addImage .popup__form-image');
 
 // Берем форму popup аватара
 export const avatarForm = document.querySelector('.popup_type_avatar .popup__form-avatar');
+
+// Поле для клика с последующей замены аватарки
+export const openPupopAvatarBtn = document.querySelector('.profile__image');
+
 
 export const objForm = {
   formSelector: '.popup__form',

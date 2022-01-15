@@ -7,6 +7,7 @@ import Section from '../components/Section.js';
 import PopupWithImage from '../components/PopupWithImage.js';
 import PopupWithForm from '../components/PopupWithForm.js';
 import UserInfo from '../components/UserInfo.js';
+import PopupWithAvatar from '../components/PopupWithAvatar';
 
 import {
   editBtnProfile,
@@ -25,7 +26,9 @@ import {
   popupProfileSelector,
   popupAddImageSelector,
   photoTemplateSelector,
-  avatarForm
+  avatarForm,
+  openPupopAvatarBtn,
+  popupAddAvatarSelector
 } from '../parts/constants.js';
 
 
@@ -40,6 +43,9 @@ const profileUserInfo = new UserInfo(
     professionSelector: profileProfessionSelector
   }
 );
+
+// Popup с автаркой
+const openPopupAvatar = new PopupWithAvatar(popupAddAvatarSelector);
 
 
 // Функция для создания карточки
@@ -101,7 +107,7 @@ const openPopupProfile = new PopupWithForm({
 openPopupWithImage.setEventListeners();
 openPopupProfile.setEventListeners();
 openPopupAddImage.setEventListeners();
-
+openPopupAvatar.setEventListeners();
 
 // Открываем popup profile
 editBtnProfile.addEventListener('click', () => {
@@ -127,7 +133,9 @@ addBtnProfile.addEventListener('click', function () {
 });
 
 // Открываем popup для изменения аватарки
-
+openPupopAvatarBtn.addEventListener('click', function(){
+  openPopupAvatar.open();
+});
 
 
 
