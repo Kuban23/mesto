@@ -53,6 +53,8 @@ module.exports = {
       }
     ]
   },
+
+  devtool: 'source-map',
   // добавьте массив
   plugins: [
     new HtmlWebpackPlugin({

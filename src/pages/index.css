@@ -21,6 +21,7 @@
 @import url("../blocks/profile/__edit-button/profile__edit-button.css");
 @import url("../blocks/profile/__profession/profile__profession.css");
 @import url("../blocks/profile/__add-button/profile__add-button.css");
+@import url("../blocks/profile/__image/profile__image.css");
 
 /* -- Блок elements photo---------------------------------------------------------------------------- */
 @import url("../blocks/galery/galery.css");

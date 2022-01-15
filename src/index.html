@@ -22,7 +22,10 @@
     <!--Блок profile ---------------------------------------------------------------------------->
 
     <section class="profile">
-      <img class="profile__avatar" src="<%=require('./image/avatar.jpg')%>" alt="Изображение Аватарки">
+      <div class="profile__image">
+        <img class="profile__avatar" src="<%=require('./image/avatar.jpg')%>" alt="Изображение Аватарки">
+      </div>
+
       <div class="profile__info">
         <div class="profile__wrapper">
           <h1 class="profile__name">Жак-Ив Кусто</h1>
@@ -95,7 +98,7 @@
   </section>
 
   <!-- Блок popup открытие попапа с аватаром ---------------------------------------------------------------------------->
-  <section class="popup popup_type_avatar popup_opened">
+  <section class="popup popup_type_avatar">
     <div class="popup__container">
       <button class="popup__close" type="button" aria-label="Кнопка закрытия окна"></button>
       <h2 class="popup__title">Обновить аватар</h2>
