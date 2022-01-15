@@ -24,7 +24,8 @@ import {
   profileProfessionSelector,
   popupProfileSelector,
   popupAddImageSelector,
-  photoTemplateSelector
+  photoTemplateSelector,
+  avatarForm
 } from '../parts/constants.js';
 
 
@@ -125,6 +126,11 @@ addBtnProfile.addEventListener('click', function () {
 
 });
 
+// Открываем popup для изменения аватарки
+
+
+
+
 
 // Включаем валидацию popup профиля
 const profFormValidator = new FormValidator(objForm, profileForm);
@@ -134,5 +140,7 @@ profFormValidator.enableValidation();
 const imageFormValidator = new FormValidator(objForm, addImageForm);
 imageFormValidator.enableValidation();
 
-
+// Включаем валидацию popup аватара
+const avatarFormValidator = new FormValidator(objForm, avatarForm);
+avatarFormValidator.enableValidation();
 

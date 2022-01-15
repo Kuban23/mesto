@@ -50,7 +50,7 @@ export class Card {
       this._deleteCard();
     })
 
-       //Открываем popup с картинкой приклике на нее.
+       //Открываем popup с картинкой при клике на нее.
     this._photoImageTemplate.addEventListener('click', () => {
       this._handleCardClick();
     })

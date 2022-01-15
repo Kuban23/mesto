@@ -38,6 +38,8 @@ export const photoTemplateSelector = '.photo-template';
 // Берем форму popup картинок
 export const addImageForm = document.querySelector('.popup_type_addImage .popup__form-image');
 
+// Берем форму popup аватара
+export const avatarForm = document.querySelector('.popup_type_avatar .popup__form-avatar');
 
 export const objForm = {
   formSelector: '.popup__form',
