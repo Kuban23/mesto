@@ -1,10 +1,11 @@
 export class Card {
-  constructor({data, handleCardClick}, selector) {
+  constructor({data, handleCardClick, handleDeleteCard}, selector) {
     this._name = data.name;
     this._imageAlt = data.name;
     this._link = data.link;
     this._selector = selector;
     this._handleCardClick = handleCardClick;
+    this._handleDeleteCard = handleDeleteCard;
   }
 
   // Забираем разметку из HTML  и клонируем элемент.
@@ -35,8 +36,9 @@ export class Card {
   }
 
   // Реализация удаления карточек
-  _deleteCard() {
-    this._trashButton.closest('.photo').remove();
+  deleteCard() {
+    //this._trashButton.closest('.photo').remove();
+    this._element.remove();
   }
 
    _setEventListeners() {
@@ -47,7 +49,9 @@ export class Card {
 
     // Реализация клика удаления карточки
     this._trashButton.addEventListener('click', () => {
-      this._deleteCard();
+      this._handleDeleteCard(this);
+      //this._deleteCard();
+
     })
 
        //Открываем popup с картинкой при клике на нее.
