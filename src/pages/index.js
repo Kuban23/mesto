@@ -2,7 +2,7 @@
 import './index.css';
 import { Card } from '../components/Card.js';
 import { FormValidator } from '../components/FormValidator.js';
-import { initialCards } from '../parts/initialCards.js';
+//import { initialCards } from '../parts/initialCards.js';
 import Section from '../components/Section.js';
 import PopupWithImage from '../components/PopupWithImage.js';
 import PopupWithForm from '../components/PopupWithForm.js';
@@ -88,15 +88,23 @@ function createCard(cardItem) {
 // Добавляем картинки на страницу
 
 const сardList = new Section(
+  // {
+  //   items: initialCards,
+  //   renderer: (cardItem) => {
+  //     сardList.addItem(createCard(cardItem));
+  //   }
+  // }, photoContainer
   {
-    items: initialCards,
     renderer: (cardItem) => {
+      //const defaultCard = createCard(cardItem);
       сardList.addItem(createCard(cardItem));
     }
   }, photoContainer
+
 );
+
 // отрисовываем все элементы
-сardList.renderItems();
+//сardList.renderItems();
 
 
 // Создаем карточки ч/з popup
@@ -131,7 +139,7 @@ const openPopupProfile = new PopupWithForm({
         profileUserInfo.setUserInfo({ name, about });
         openPopupProfile.close();
       })
-      .catch((err) => console.log(err))
+      .catch((error) => console.log(error))
       .finally(() => {
         openPopupProfile.renderLoading(false);
       });
@@ -203,3 +211,17 @@ const api = new Api({
   address: 'https://mesto.nomoreparties.co/v1/cohort-34',
   token: '3e73d708-abda-497f-b5cd-226c9c586d8e',
 });
+
+
+
+let myProfileId;
+
+Promise.all([api.getProfileUserInfo(), api.getLoadCards()])
+  .then(([userData, arrayCards]) => {
+    myProfileId = userData._id;
+    profileUserInfo.setUserInfo(userData);
+    сardList.renderItems(arrayCards);
+  })
+  .catch((error) => {
+    console.log(error);
+  });
