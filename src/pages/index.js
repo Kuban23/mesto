@@ -9,7 +9,7 @@ import PopupWithForm from '../components/PopupWithForm.js';
 import UserInfo from '../components/UserInfo.js';
 import PopupWithAvatar from '../components/PopupWithAvatar.js';
 import PopupDelete from '../components/PopupDelete.js';
-//import Api from '../components/Api.js';
+import Api from '../components/Api.js';
 
 import {
   editBtnProfile,
@@ -118,11 +118,25 @@ const openPopupAddImage = new PopupWithForm({
 // Popup редактируем профиль
 
 const openPopupProfile = new PopupWithForm({
+  // selectorPopup: popupProfileSelector,
+  // handleFormSubmit: ({ name, about }) => {
+  //   profileUserInfo.setUserInfo({ name, about });
+  //   openPopupProfile.close();
+  // }
   selectorPopup: popupProfileSelector,
   handleFormSubmit: ({ name, about }) => {
-    profileUserInfo.setUserInfo({ name, about });
-    openPopupProfile.close();
+    openPopupProfile.renderLoading(true);
+    api.redactProfile({ name, about })
+      .then((res) => {
+        profileUserInfo.setUserInfo({ name, about });
+        openPopupProfile.close();
+      })
+      .catch((err) => console.log(err))
+      .finally(() => {
+        openPopupProfile.renderLoading(false);
+      });
   }
+
 });
 
 //  Создаем слушателей для кнопок

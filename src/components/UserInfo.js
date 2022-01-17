@@ -4,7 +4,7 @@ export default class UserInfo {
     this._name = document.querySelector(nameSelector);
     this._profession = document.querySelector(professionSelector);
     this._link = document.querySelector(linkSelector);
-    this._avatar = document.querySelector(avatarSelector);
+    //this._avatar = document.querySelector(avatarSelector);
   }
 
   // Возвращает объект с данными пользователя

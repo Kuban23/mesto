@@ -3,6 +3,7 @@ export default class Popup {
   constructor(selectorPopup) {
     this._popup = document.querySelector(selectorPopup);
     this._handleCloseEsc = this._handleEscClose.bind(this);
+    this._popupSubmitButton = this._popup.querySelector('.popup__submit-button');
   }
 
   // Метод open открытие popup
@@ -34,6 +35,16 @@ export default class Popup {
         this.close();
       }
     })
+  }
+
+  // При редактировании профиля уведомляем пользователя о процессе загрузки
+  renderLoading(isLoading) {
+    if (isLoading) {
+      this._popupSubmitButton.textContent = 'Сохранение...';
+    }
+    else {
+      this._popupSubmitButton.textContent = 'Сохранить';
+    }
   }
 
 
