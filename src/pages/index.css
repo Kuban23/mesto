@@ -33,6 +33,7 @@
 @import url("../blocks/photo/__like/_active/photo__like_active.css");
 @import url("../blocks/photo/__trash/photo__trash.css");
 @import url("../blocks/photo/__like-sum/photo__like-sum.css");
+@import url("../blocks/photo/__trash/_type/photo__trash_type_active.css");
 
 /* -- Блок footer---------------------------------------------------------------------------- */
 @import url("../blocks/footer/footer.css");

@@ -60,25 +60,57 @@ const profileUserAvatarInfo = new UserInfo(
 // Popup с автаркой
 const openPopupAvatar = new PopupWithAvatar(popupAddAvatarSelector);
 
-
 // Popup подтверждения удаления
-const popupDelete = new PopupDelete(popupDeleteSelector);
+const popupDelete = new PopupDelete(popupDeleteSelector, (card) => {
+  api.deleteCard(card.id)
+    .then(() => {
+      card.deleteCard();
+      popupDelete.close();
+    })
+    .catch((error) => console.log(error));
+});
 
 
 // Функция для создания карточки
 
 function createCard(cardItem) {
+  const myId = profileUserInfo.getUserInfo().id
   const card = new Card({
     data: cardItem,
+    userId: myId,
     handleCardClick: () => {
       openPopupWithImage.open(cardItem.link, cardItem.name);
     },
-    handleDeleteCard: (card) => {
-      popupDelete.open();
+    // handleDeleteCard: (card) => {
+    //   popupDelete.open();
 
-      card.deleteCard();
-      //popupDelete.close();
+    //   card.deleteCard();
+    //   //popupDelete.close();
+    // }
+
+    handleDeleteCard: (card) => {
+      popupDelete.open(card);
+      // api.deleteCard(card.getId())
+      // .then(()=>{
+      //   card.deleteCard();
+      //   popupDelete.close();
+      // })
+      // .catch((error)=>console.log(error));
     }
+
+    // handleDeleteCard: (card) => {
+    //   popupDelete.open();
+    //   popupDelete.setSubmit(() => {
+    //     api.deleteCard(card.getId())
+    //       .then(() => {
+    //         card.deleteCard();
+    //         popupDelete.close();
+    //       })
+    //       .catch((error) => console.log(error));
+    //   })
+    // }
+
+
   }, photoTemplateSelector);
 
   return card.generateCard();
@@ -110,15 +142,34 @@ const сardList = new Section(
 // Создаем карточки ч/з popup
 
 const openPopupAddImage = new PopupWithForm({
+  // selectorPopup: popupAddImageSelector,
+  // handleFormSubmit: () => {
+  //   const cardInfo = {
+  //     name: popupInputaddImageTitle.value,
+  //     link: popupInputaddImageLink.value
+  //   };
+  //   const newImage = createCard(cardInfo);
+  //   сardList.addItem(newImage);
+  //   openPopupAddImage.close();
+  // }
   selectorPopup: popupAddImageSelector,
-  handleFormSubmit: () => {
-    const cardInfo = {
-      name: popupInputaddImageTitle.value,
-      link: popupInputaddImageLink.value
-    };
-    const newImage = createCard(cardInfo);
-    сardList.addItem(newImage);
-    openPopupAddImage.close();
+  handleFormSubmit: (data) => {
+    openPopupAddImage.renderLoading(true);
+    api.addCard(data)
+      .then(() => {
+        const cardInfo = {
+          name: popupInputaddImageTitle.value,
+          link: popupInputaddImageLink.value
+        };
+        const newImage = createCard(cardInfo);
+        сardList.addItem(newImage);
+        openPopupAddImage.close();
+      })
+      .catch((error) => console.log(error))
+      .finally(() => {
+        openPopupAddImage.renderLoading(false);
+      });
+
   }
 });
 

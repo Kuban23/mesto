@@ -1,11 +1,18 @@
 export class Card {
-  constructor({data, handleCardClick, handleDeleteCard}, selector) {
+  constructor({ data, handleCardClick, handleDeleteCard, userId, currentUserId }, selector) {
     this._name = data.name;
     this._imageAlt = data.name;
     this._link = data.link;
     this._selector = selector;
     this._handleCardClick = handleCardClick;
     this._handleDeleteCard = handleDeleteCard;
+    this.currentUserId = currentUserId;
+    this._id = data._id;
+    this._myId = currentUserId;
+    //this.userId = data.owner._id;
+    this._owner = userId;
+
+
   }
 
   // Забираем разметку из HTML  и клонируем элемент.
@@ -25,6 +32,7 @@ export class Card {
     this._photoImageTemplate.src = this._link;
     this._photoImageTemplate.alt = this._name;
     this._element.querySelector('.photo__text').textContent = this._name;
+    this._hendleDeleteCardActive();
 
     return this._element;
   }
@@ -41,7 +49,8 @@ export class Card {
     this._element.remove();
   }
 
-   _setEventListeners() {
+
+  _setEventListeners() {
     // Реализация клика лайка
     this._likeButton.addEventListener('click', () => {
       this._addLike();
@@ -54,13 +63,24 @@ export class Card {
 
     })
 
-       //Открываем popup с картинкой при клике на нее.
+    //Открываем popup с картинкой при клике на нее.
     this._photoImageTemplate.addEventListener('click', () => {
       this._handleCardClick();
     })
 
   }
 
+  // Метод для скрытия кнопки удаления (корзины)
+  _hendleDeleteCardActive() {
+    if (this._userId === this._currentUserId) {
+      this._trashButton.classList.add('photo__trash_type_active');
+    }
+  }
+
+  // Получаем id
+  // getId(){
+  //   return this._id;
+  // }
 
 
 };
