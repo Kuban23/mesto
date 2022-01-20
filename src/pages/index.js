@@ -33,9 +33,28 @@ import {
   popupAddAvatarSelector,
   popupDeleteSelector,
   popupInputAvatarSelector,
-  imageAvatarSelector
+  imageAvatarSelector,
+
 } from '../parts/constants.js';
 
+// Данные API
+const api = new Api({
+  address: 'https://mesto.nomoreparties.co/v1/cohort-34',
+  token: '3e73d708-abda-497f-b5cd-226c9c586d8e',
+});
+
+// Реализация загрузки информации о пользователе и карточек с сервера
+let myProfileId;
+
+Promise.all([api.getProfileUserInfo(), api.getLoadCards()])
+  .then(([userData, arrayCards]) => {
+    myProfileId = userData._id;
+    profileUserInfo.setUserInfo(userData);
+    сardList.renderItems(arrayCards);
+  })
+  .catch((error) => {
+    console.log(error);
+  });
 
 
 // Popup с картинкой
@@ -45,7 +64,8 @@ const openPopupWithImage = new PopupWithImage(popupImageViewing);
 const profileUserInfo = new UserInfo(
   {
     nameSelector: profileNameSelector,
-    professionSelector: profileProfessionSelector
+    professionSelector: profileProfessionSelector,
+    avatarSelector: imageAvatarSelector
   }
 );
 
@@ -61,14 +81,16 @@ const profileUserAvatarInfo = new UserInfo(
 const openPopupAvatar = new PopupWithAvatar(popupAddAvatarSelector);
 
 // Popup подтверждения удаления
-const popupDelete = new PopupDelete(popupDeleteSelector, (card) => {
-  api.deleteCard(card.id)
-    .then(() => {
-      card.deleteCard();
-      popupDelete.close();
-    })
-    .catch((error) => console.log(error));
-});
+const popupDelete = new PopupDelete(popupDeleteSelector);
+
+// const popupDelete = new PopupDelete(popupDeleteSelector, (card) => {
+//   api.deleteCard(card.id)
+//     .then(() => {
+//       card.deleteCard();
+//       popupDelete.close();
+//     })
+//     .catch((error) => console.log(error));
+// });
 
 
 // Функция для создания карточки
@@ -77,25 +99,39 @@ function createCard(cardItem) {
   const myId = profileUserInfo.getUserInfo().id
   const card = new Card({
     data: cardItem,
+
     userId: myId,
+    //currentUserId: myProfileId,
     handleCardClick: () => {
       openPopupWithImage.open(cardItem.link, cardItem.name);
     },
-    // handleDeleteCard: (card) => {
-    //   popupDelete.open();
-
-    //   card.deleteCard();
-    //   //popupDelete.close();
-    // }
-
     handleDeleteCard: (card) => {
-      popupDelete.open(card);
-      // api.deleteCard(card.getId())
-      // .then(()=>{
-      //   card.deleteCard();
-      //   popupDelete.close();
-      // })
-      // .catch((error)=>console.log(error));
+      popupDelete.open();
+      popupDelete.setSubmit(() => {
+        api.deleteCard(card.getId())
+          .then(() => {
+            card.deleteCard();
+            popupDelete.close();
+          })
+          .catch((error) => console.log(error));
+      });
+
+    },
+
+    handleSetLike: (card) => {
+      api.addLikes(card.getId())
+        .then((res) => {
+          card.kitInfoLikes(res);
+        })
+        .catch((error) => console.log(error));
+    },
+
+    hendleRemoveLike: (card) => {
+      api.deleteLikes(card.getId())
+        .then((res) => {
+          card.kitInfoLikes(res);
+        })
+        .catch((error) => console.log(error));
     }
 
     // handleDeleteCard: (card) => {
@@ -152,16 +188,18 @@ const openPopupAddImage = new PopupWithForm({
   //   сardList.addItem(newImage);
   //   openPopupAddImage.close();
   // }
+
   selectorPopup: popupAddImageSelector,
   handleFormSubmit: (data) => {
     openPopupAddImage.renderLoading(true);
     api.addCard(data)
-      .then(() => {
+      .then((data) => {
         const cardInfo = {
           name: popupInputaddImageTitle.value,
-          link: popupInputaddImageLink.value
+          link: popupInputaddImageLink.value,
+
         };
-        const newImage = createCard(cardInfo);
+        const newImage = createCard(data, cardInfo);
         сardList.addItem(newImage);
         openPopupAddImage.close();
       })
@@ -231,12 +269,30 @@ addBtnProfile.addEventListener('click', function () {
 });
 
 // Открываем popup для изменения аватарки
-openPupopAvatarBtn.addEventListener('click', function () {
+openPupopAvatarBtn.addEventListener('click', () => {
+  // openPopupAvatar.open();
+  // profileUserAvatarInfo.setUserInfo({ avatar });
+  // // Вызываем на объекте imageFormValidator функцию resetValidation для очищения инпутов
+  // avatarFormValidator.resetValidation();
+  // openPopupAvatar.close();
+
   openPopupAvatar.open();
-  profileUserAvatarInfo.setUserInfo({ avatar });
   // Вызываем на объекте imageFormValidator функцию resetValidation для очищения инпутов
   avatarFormValidator.resetValidation();
-  openPopupAvatar.close();
+  openPopupAvatar.setSubmit(() => {
+    const linkUserAvatar = profileUserAvatarInfo.getUserAvatarInfo();
+    openPopupAvatar.renderLoading(true);
+    api.redactAvatar(linkUserAvatar)
+      .then((res) => {
+        profileUserAvatarInfo.setUserInfo({ avatar: res.avatar });
+        openPopupAvatar.close();
+      })
+      .catch((error) => console.log(error))
+      .finally(() => {
+        openPopupAvatar.renderLoading(false);
+      });
+  });
+
 });
 
 
@@ -257,22 +313,22 @@ avatarFormValidator.enableValidation();
 
 
 
-// Данные API
-const api = new Api({
-  address: 'https://mesto.nomoreparties.co/v1/cohort-34',
-  token: '3e73d708-abda-497f-b5cd-226c9c586d8e',
-});
+// // Данные API
+// const api = new Api({
+//   address: 'https://mesto.nomoreparties.co/v1/cohort-34',
+//   token: '3e73d708-abda-497f-b5cd-226c9c586d8e',
+// });
 
 
+// // Реализация загрузки информации о пользователе и карточек с сервера
+// let myProfileId;
 
-let myProfileId;
-
-Promise.all([api.getProfileUserInfo(), api.getLoadCards()])
-  .then(([userData, arrayCards]) => {
-    myProfileId = userData._id;
-    profileUserInfo.setUserInfo(userData);
-    сardList.renderItems(arrayCards);
-  })
-  .catch((error) => {
-    console.log(error);
-  });
+// Promise.all([api.getProfileUserInfo(), api.getLoadCards()])
+//   .then(([userData, arrayCards]) => {
+//     myProfileId = userData._id;
+//     profileUserInfo.setUserInfo(userData);
+//     сardList.renderItems(arrayCards);
+//   })
+//   .catch((error) => {
+//     console.log(error);
+//   });
