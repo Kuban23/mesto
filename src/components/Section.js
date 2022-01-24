@@ -20,8 +20,14 @@ export default class Section {
 
 
   // Метод принимающий DOM-элемент и добавляет его в контейнер
-  addItem(element) {
-    this._container.prepend(element);
+  addItem(element, order = true) {
+    if (order) {
+      this._container.append(element);
+    }
+    else {
+      this._container.prepend(element);
+    }
+
   }
 
 

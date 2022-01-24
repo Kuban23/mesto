@@ -8,7 +8,7 @@ export default class PopupWithImage extends Popup {
   }
 
   // Дополняем родительски метод popup, вставляем src и подпись
-    open(link, name) {
+    open(name, link) {
     this._popupImage.src = link;
     this._popupName.textContent = name;
     this._popupImage.alt = name;

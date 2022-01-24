@@ -38,8 +38,8 @@ export default class Popup {
   }
 
   // При редактировании профиля уведомляем пользователя о процессе загрузки
-  renderLoading(isLoading) {
-    if (isLoading) {
+  renderLoading(Loading) {
+    if (Loading) {
       this._popupSubmitButton.textContent = 'Сохранение...';
     }
     else {
@@ -49,7 +49,3 @@ export default class Popup {
 
 
 }
-
-
-
-

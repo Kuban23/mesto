@@ -1,22 +1,17 @@
 export class Card {
-  constructor({ data, handleCardClick, handleDeleteCard, userId, currentUserId, handleSetLike, hendleRemoveLike }, selector) {
-    this._name = data.name;
-    this._imageAlt = data.name;
-    this._link = data.link;
-    this._id = data._id;
-    this._likes = data.likes;
+  constructor({ name, link, likes, owner, _id }, myProfileId, handleCardClick, handleDeleteCard, handleSetLike, hendleRemoveLike, selector) {
+    this._name = name;
+    //this._imageAlt = name;
+    this._link = link;
+    this._id = _id;
     this._selector = selector;
     this._handleCardClick = handleCardClick;
     this._handleDeleteCard = handleDeleteCard;
-    this.currentUserId = currentUserId;
+    this._myProfileId = myProfileId;
+    this._userId = owner._id;
+    this._likes = likes;
     this._handleSetLike = handleSetLike;
     this._hendleRemoveLike = hendleRemoveLike;
-
-    this._myId = currentUserId;
-    this.userId = data.owner._id;
-    this._owner = data.owner;
-    //this._owner = data.owner._id === userId;
-
   }
 
   // Забираем разметку из HTML  и клонируем элемент.
@@ -38,7 +33,6 @@ export class Card {
       this._likeButton.classList.remove('photo__like_active');
     }
 
-
     this._trashButton = this._element.querySelector('.photo__trash');
     this._photoImageTemplate = this._element.querySelector('.photo__image');
     this._sumLikes = this._element.querySelector('.photo__like-sum');
@@ -48,9 +42,10 @@ export class Card {
     this._photoImageTemplate.alt = this._name;
     this._element.querySelector('.photo__text').textContent = this._name;
 
-    this._hendleDeleteCardActive();
     // Вызываем метод для одображения суммы лайков при обновлении старницы
     this._kitLikes();
+    this._hendleDeleteCardActive();
+
 
     return this._element;
   }
@@ -79,23 +74,27 @@ export class Card {
         this._handleSetLike(this);
       }
     });
+
     // Реализация клика удаления карточки
     this._trashButton.addEventListener('click', () => {
       this._handleDeleteCard(this);
       //this._deleteCard();
     });
+
     //Открываем popup с картинкой при клике на нее.
     this._photoImageTemplate.addEventListener('click', () => {
-      this._handleCardClick();
+      this._handleCardClick(this._name, this._link);
     });
 
   }
 
   // Метод для скрытия кнопки удаления карточки (корзины)
   _hendleDeleteCardActive() {
-    if (this.userId === this.currentUserId) {
+    if (this._userId === this._myProfileId) {
       this._trashButton.classList.add('photo__trash_type_active');
+      //debugger;
     }
+
   }
 
   // Реализация отображения лайков
@@ -104,13 +103,13 @@ export class Card {
   }
 
   // Установка инфориации об лайках
-  kitInfoLikes(datainfo) {
-    this._likes = datainfo.likes;
+  kitInfoLikes(data) {
+    this._likes = data.likes;
     this._correctionLikes();
   }
 
   // Обновляем просмотр лайков
-  _correctionLikes(datainfo) {
+  _correctionLikes(data) {
     if (!this._foundLikes()) {
       this._kitLikes();
       this._likeButton.classList.remove('photo__like_active');
@@ -126,9 +125,7 @@ export class Card {
     // const ikessss= this._likes.find(function(like) {
     //   return like.data_id === this._myId;
     // })
-
-
-    return this._likes.find((like) => like.data_id === this._myId);
+    return this._likes.find((like) => like._id === this._myProfileId);
 
   }
 

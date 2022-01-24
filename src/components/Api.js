@@ -91,13 +91,13 @@ export default class Api {
 
   // Постановка и снятие лайка
   deleteLikes(id) {
-  	return fetch(`${this._address}/cards/likes/${id}`, {
-  		method: 'DELETE',
-  		headers: {
-  			authorization: this._token,
-  		}
-  	})
-  		.then(this._checkResponse);
+    return fetch(`${this._address}/cards/likes/${id}`, {
+      method: 'DELETE',
+      headers: {
+        authorization: this._token,
+      }
+    })
+      .then(this._checkResponse);
   }
 
   // Обновление аватарки
