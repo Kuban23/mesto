@@ -92,7 +92,7 @@ export class Card {
   _hendleDeleteCardActive() {
     if (this._userId === this._myProfileId) {
       this._trashButton.classList.add('photo__trash_type_active');
-      //debugger;
+      // debugger;
     }
 
   }

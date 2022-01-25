@@ -16,9 +16,5 @@ export default class PopupDelete extends Popup {
     })
   }
 
-  setSubmit(action) {
-    this._handleButtonClick = action;
-  }
-
 
 }

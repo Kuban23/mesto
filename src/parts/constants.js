@@ -15,8 +15,8 @@ export const popupInputTypeProfession = document.querySelector('.popup__input_ty
 
 
 // Находим Инпуты popup для добавления карточек
-export const popupInputaddImageTitle = document.querySelector('.popup__input_type_title');
-export const popupInputaddImageLink = document.querySelector('.popup__input_type_link');
+// export const popupInputaddImageTitle = document.querySelector('.popup__input_type_title');
+// export const popupInputaddImageLink = document.querySelector('.popup__input_type_link');
 
 // Находим имя и профессию в блоке profile
 // export const profileName = document.querySelector('.profile__name');
@@ -62,6 +62,8 @@ export const objForm = {
   inputErrorClass: 'popup__input_type_error',
   errorClass: 'popup__input-error'
 };
+
+
 
 
 

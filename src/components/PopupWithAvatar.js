@@ -11,15 +11,9 @@ export default class PopupWithAvatar extends Popup {
     super.setEventListeners();
     this._form.addEventListener('submit', (evt) => {
       evt.preventDefault();
-      this._handleFormSubmit();
+      this._handleButtonClick();
     })
   }
-
-  // Реализация отправки, без него получаем при клике на автарку отшибку- ответа от сервера
-  setSubmit(action) {
-    this._handleFormSubmit = action;
-  }
-
 
 
 }

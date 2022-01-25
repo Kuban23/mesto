@@ -15,8 +15,8 @@ import {
   editBtnProfile,
   profileForm,
   addBtnProfile,
-  popupInputaddImageTitle,
-  popupInputaddImageLink,
+  //popupInputaddImageTitle,
+  //popupInputaddImageLink,
   photoContainer,
   addImageForm,
   objForm,
@@ -150,7 +150,7 @@ const сardList = new Section(
 const openPopupProfile = new PopupWithForm({
   selectorPopup: popupProfileSelector,
   handleFormSubmit: ({ name, about }) => {
-    openPopupProfile.renderLoading(true);
+    openPopupProfile.renderLoading(false, true);
     api.redactProfile({ name, about })
       .then((res) => {
         profileUserInfo.setUserInfo({ name, about });
@@ -158,7 +158,7 @@ const openPopupProfile = new PopupWithForm({
       })
       .catch((error) => console.log(error))
       .finally(() => {
-        openPopupProfile.renderLoading(false);
+        openPopupProfile.renderLoading(false, false);
       });
   },
 
@@ -184,7 +184,7 @@ editBtnProfile.addEventListener('click', () => {
 const openPopupAddImage = new PopupWithForm({
   selectorPopup: popupAddImageSelector,
   handleFormSubmit: (data) => {
-    openPopupAddImage.renderLoading(true);
+    openPopupAddImage.renderLoading(true, false);
     api.addCard(data)
       .then((data) => {
         const newImage = createCard(data, photoTemplateSelector);
@@ -193,7 +193,7 @@ const openPopupAddImage = new PopupWithForm({
       })
       .catch((error) => console.log(error))
       .finally(() => {
-        openPopupAddImage.renderLoading(false);
+        openPopupAddImage.renderLoading(false, false);
       });
 
   }
@@ -202,11 +202,11 @@ const openPopupAddImage = new PopupWithForm({
 // Открываем popup для изменения аватарки
 openPupopAvatarBtn.addEventListener('click', () => {
   openPopupAvatar.open();
-  // Вызываем на объекте imageFormValidator функцию resetValidation для очищения инпутов
+  // Вызываем на объекте avatarFormValidator функцию resetValidation для очищения инпутов
   avatarFormValidator.resetValidation();
   openPopupAvatar.setSubmit(() => {
     const linkUserAvatar = profileUserAvatarInfo.getUserAvatarInfo();
-    openPopupAvatar.renderLoading(true);
+    openPopupAvatar.renderLoading(true, false);
     api.redactAvatar(linkUserAvatar)
       .then((res) => {
         profileUserAvatarInfo.setUserInfo({ avatar: res.avatar });
@@ -214,10 +214,10 @@ openPupopAvatarBtn.addEventListener('click', () => {
       })
       .catch((error) => console.log(error))
       .finally(() => {
-        openPopupAvatar.renderLoading(false);
+        openPopupAvatar.renderLoading(false, false);
       });
   });
-
+  avatarFormValidator.enableValidation();
 });
 
 // Открываем popup для добавления картинок
@@ -247,5 +247,5 @@ imageFormValidator.enableValidation();
 
 // Включаем валидацию popup аватара
 const avatarFormValidator = new FormValidator(objForm, avatarForm);
-avatarFormValidator.enableValidation();
+//avatarFormValidator.enableValidation();
 
