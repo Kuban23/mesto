@@ -3,7 +3,7 @@ export default class UserInfo {
   constructor({ nameSelector, professionSelector, linkSelector, avatarSelector }) {
     this._name = document.querySelector(nameSelector);
     this._profession = document.querySelector(professionSelector);
-    this._link = document.querySelector(linkSelector);
+    //this._link = document.querySelector(linkSelector);
     this._avatar = document.querySelector(avatarSelector);
   }
 
@@ -12,7 +12,6 @@ export default class UserInfo {
     const userInfo = {
       name: this._name.textContent,
       about: this._profession.textContent,
-      //avatar: this._avatar.src
     };
     return userInfo;
   }
@@ -34,12 +33,5 @@ export default class UserInfo {
     }
 
   }
-
-  // Возвращаем Value для дальнейшей передачи ее в метод myProfileId
-  getUserAvatarInfo() {
-    return this._link.value;
-  }
-
-
 
 }

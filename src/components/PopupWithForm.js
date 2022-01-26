@@ -33,6 +33,18 @@ export default class PopupWithForm extends Popup {
     this._form.reset();
   }
 
-  
+  // При редактировании профиля уведомляем пользователя о процессе загрузки
+  renderLoading(Loading, order = true) {
+    if (Loading) {
+      this._popupSubmitButton.textContent = 'Сохранение...';
+    }
+    else if (order) {
+      this._popupSubmitButton.textContent = 'Загрузка...';
+    }
+    else {
+      this._popupSubmitButton.textContent = 'Сохранить';
+    }
+  }
+
 
 }

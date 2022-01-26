@@ -7,7 +7,6 @@ import Section from '../components/Section.js';
 import PopupWithImage from '../components/PopupWithImage.js';
 import PopupWithForm from '../components/PopupWithForm.js';
 import UserInfo from '../components/UserInfo.js';
-import PopupWithAvatar from '../components/PopupWithAvatar.js';
 import PopupDelete from '../components/PopupDelete.js';
 import Api from '../components/Api.js';
 
@@ -15,8 +14,6 @@ import {
   editBtnProfile,
   profileForm,
   addBtnProfile,
-  //popupInputaddImageTitle,
-  //popupInputaddImageLink,
   photoContainer,
   addImageForm,
   objForm,
@@ -32,7 +29,6 @@ import {
   openPupopAvatarBtn,
   popupAddAvatarSelector,
   popupDeleteSelector,
-  popupInputAvatarSelector,
   imageAvatarSelector,
 
 } from '../parts/constants.js';
@@ -52,16 +48,11 @@ const profileUserInfo = new UserInfo(
 // Данные об аватарке
 const profileUserAvatarInfo = new UserInfo(
   {
-    linkSelector: popupInputAvatarSelector,
+    //linkSelector: popupInputAvatarSelector,
     avatarSelector: imageAvatarSelector
   }
 );
 
-// Popup с автаркой
-const openPopupAvatar = new PopupWithAvatar(popupAddAvatarSelector);
-
-// Popup подтверждения удаления
-const popupDelete = new PopupDelete(popupDeleteSelector);
 
 // Данные API
 const api = new Api({
@@ -135,7 +126,6 @@ const createCard = (
 // Добавляем картинки на страницу
 
 const сardList = new Section(
-
   {
     renderer: (item) => {
       const defaultCard = createCard(item, photoTemplateSelector);
@@ -165,6 +155,7 @@ const openPopupProfile = new PopupWithForm({
 });
 
 // Открываем popup profile
+
 editBtnProfile.addEventListener('click', () => {
   openPopupProfile.open();
   // Вызываем функцию resetValidation для очищения инпутов
@@ -176,8 +167,8 @@ editBtnProfile.addEventListener('click', () => {
 
   // Если форма валидна, то кнопка активна
   profFormValidator.enableSubmitButton();
-
 });
+
 
 // Создаем карточки ч/з popup
 
@@ -195,19 +186,17 @@ const openPopupAddImage = new PopupWithForm({
       .finally(() => {
         openPopupAddImage.renderLoading(false, false);
       });
-
   }
 });
 
-// Открываем popup для изменения аватарки
-openPupopAvatarBtn.addEventListener('click', () => {
-  openPopupAvatar.open();
-  // Вызываем на объекте avatarFormValidator функцию resetValidation для очищения инпутов
-  avatarFormValidator.resetValidation();
-  openPopupAvatar.setSubmit(() => {
-    const linkUserAvatar = profileUserAvatarInfo.getUserAvatarInfo();
+// Popup с автаркой
+
+const openPopupAvatar = new PopupWithForm({
+  selectorPopup: popupAddAvatarSelector,
+  handleFormSubmit: (values) => {
+    const { link } = values;
     openPopupAvatar.renderLoading(true, false);
-    api.redactAvatar(linkUserAvatar)
+    api.redactAvatar(link)
       .then((res) => {
         profileUserAvatarInfo.setUserInfo({ avatar: res.avatar });
         openPopupAvatar.close();
@@ -216,9 +205,19 @@ openPupopAvatarBtn.addEventListener('click', () => {
       .finally(() => {
         openPopupAvatar.renderLoading(false, false);
       });
-  });
-  avatarFormValidator.enableValidation();
+  }
 });
+
+// Открываем popup для изменения аватарки
+openPupopAvatarBtn.addEventListener('click', () => {
+  openPopupAvatar.open();
+  // Вызываем на объекте avatarFormValidator функцию resetValidation для очищения инпутов
+  avatarFormValidator.resetValidation();
+});
+
+// Popup подтверждения удаления
+const popupDelete = new PopupDelete(popupDeleteSelector);
+
 
 // Открываем popup для добавления картинок
 addBtnProfile.addEventListener('click', function () {
@@ -247,5 +246,5 @@ imageFormValidator.enableValidation();
 
 // Включаем валидацию popup аватара
 const avatarFormValidator = new FormValidator(objForm, avatarForm);
-//avatarFormValidator.enableValidation();
+avatarFormValidator.enableValidation();
 

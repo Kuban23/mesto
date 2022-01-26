@@ -39,7 +39,7 @@ export const popupAddAvatarSelector = '.popup_type_avatar';
 // Находим popup подтверждения удаления
 export const popupDeleteSelector = '.popup_type_delete';
 // Находим инпут аватарки
-export const popupInputAvatarSelector = '.popup__input-avatar';
+// export const popupInputAvatarSelector = '.popup__input-avatar';
 // Находим картинку автарки
 export const imageAvatarSelector = '.profile__avatar';
 

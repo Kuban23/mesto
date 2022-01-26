@@ -16,5 +16,9 @@ export default class PopupDelete extends Popup {
     })
   }
 
+  // Реализация подтверждения удаления, без этого метода удаление происходит сразу, без подтверждения. 
+  setSubmit(action) {
+    this._handleButtonClick = action;
+  }
 
 }
