@@ -21,11 +21,8 @@ export default class Popup {
   // Метод для закрытия popup по клавише Esc
   _handleEscClose(evt) {
     if (evt.key === 'Escape') {
-      if (this._popup.classList.contains('popup_opened')) {
-        this.close();
-      }
+      this.close();
     }
-
   }
 
   // Метод добавляет слушатель клика закрытия popup
@@ -34,10 +31,7 @@ export default class Popup {
       if (evt.target.classList.contains('popup_opened') || evt.target.classList.contains('popup__close')) {
         this.close();
       }
-      this._handleButtonClick;
     })
   }
-
- 
 
 }

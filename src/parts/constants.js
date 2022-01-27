@@ -13,15 +13,6 @@ export const popupProfile = document.querySelector('.popup_type_profile');
 export const popupInputTypeName = document.querySelector('.popup__input_type_name');
 export const popupInputTypeProfession = document.querySelector('.popup__input_type_profession');
 
-
-// Находим Инпуты popup для добавления карточек
-// export const popupInputaddImageTitle = document.querySelector('.popup__input_type_title');
-// export const popupInputaddImageLink = document.querySelector('.popup__input_type_link');
-
-// Находим имя и профессию в блоке profile
-// export const profileName = document.querySelector('.profile__name');
-// export const profileProfession = document.querySelector('.profile__profession');
-
 // Селекторы для классов
 export const profileNameSelector = '.profile__name';
 export const profileProfessionSelector = '.profile__profession';
@@ -38,8 +29,6 @@ export const photoTemplateSelector = '.photo-template';
 export const popupAddAvatarSelector = '.popup_type_avatar';
 // Находим popup подтверждения удаления
 export const popupDeleteSelector = '.popup_type_delete';
-// Находим инпут аватарки
-// export const popupInputAvatarSelector = '.popup__input-avatar';
 // Находим картинку автарки
 export const imageAvatarSelector = '.profile__avatar';
 

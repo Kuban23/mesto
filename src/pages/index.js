@@ -2,7 +2,6 @@
 import './index.css';
 import { Card } from '../components/Card.js';
 import { FormValidator } from '../components/FormValidator.js';
-//import { initialCards } from '../parts/initialCards.js';
 import Section from '../components/Section.js';
 import PopupWithImage from '../components/PopupWithImage.js';
 import PopupWithForm from '../components/PopupWithForm.js';
@@ -33,22 +32,14 @@ import {
 
 } from '../parts/constants.js';
 
-// Popup с картинкой
-const openPopupWithImage = new PopupWithImage(popupImageViewing);
+// Popup с картинкой openPopupWithImage
+const imagePopup = new PopupWithImage(popupImageViewing);
 
-// Данные о пользователе
+// Данные о пользователе и данные об аватарке
 const profileUserInfo = new UserInfo(
   {
     nameSelector: profileNameSelector,
     professionSelector: profileProfessionSelector,
-    avatarSelector: imageAvatarSelector
-  }
-);
-
-// Данные об аватарке
-const profileUserAvatarInfo = new UserInfo(
-  {
-    //linkSelector: popupInputAvatarSelector,
     avatarSelector: imageAvatarSelector
   }
 );
@@ -74,15 +65,14 @@ Promise.all([api.getProfileUserInfo(), api.getLoadCards()])
   });
 
 // Функция для создания карточки
-const createCard = (
-  { name, link, likes, owner, _id },
-  selector,
 
-  handleCardClick = (name, link) => {
-    openPopupWithImage.open(name, link);
-  },
+const createCard = ({ name, link, likes, owner, _id }, selector) => {
 
-  handleDeleteCard = (card) => {
+  const handleCardClick = (name, link) => {
+    imagePopup.open(name, link);
+  }
+
+  const handleDeleteCard = (card) => {
     popupDelete.open();
     popupDelete.setSubmit(() => {
       api.deleteCard(card.getId())
@@ -92,24 +82,23 @@ const createCard = (
         })
         .catch((error) => console.log(error));
     });
-  },
+  }
 
-  handleSetLike = (card) => {
+  const handleSetLike = (card) => {
     api.addLikes(card.getId())
       .then((res) => {
-        card.kitInfoLikes(res);
-      })
-      .catch((error) => console.log(error));
-  },
-
-  hendleRemoveLike = (card) => {
-    api.deleteLikes(card.getId())
-      .then((res) => {
-        card.kitInfoLikes(res);
+        card.setInfoLikes(res);
       })
       .catch((error) => console.log(error));
   }
-) => {
+
+  const hendleRemoveLike = (card) => {
+    api.deleteLikes(card.getId())
+      .then((res) => {
+        card.setInfoLikes(res);
+      })
+      .catch((error) => console.log(error));
+  }
   const card = new Card(
     { name, link, likes, owner, _id },
     myProfileId,
@@ -130,25 +119,24 @@ const сardList = new Section(
     renderer: (item) => {
       const defaultCard = createCard(item, photoTemplateSelector);
       сardList.addItem(defaultCard);
-
     }
   }, photoContainer
 );
 
 // Popup редактируем профиль
 
-const openPopupProfile = new PopupWithForm({
+const popupProfile = new PopupWithForm({
   selectorPopup: popupProfileSelector,
   handleFormSubmit: ({ name, about }) => {
-    openPopupProfile.renderLoading(false, true);
+    popupProfile.renderLoading(true, 'Загрузка...');
     api.redactProfile({ name, about })
       .then((res) => {
         profileUserInfo.setUserInfo({ name, about });
-        openPopupProfile.close();
+        popupProfile.close();
       })
       .catch((error) => console.log(error))
       .finally(() => {
-        openPopupProfile.renderLoading(false, false);
+        popupProfile.renderLoading(false);
       });
   },
 
@@ -157,7 +145,7 @@ const openPopupProfile = new PopupWithForm({
 // Открываем popup profile
 
 editBtnProfile.addEventListener('click', () => {
-  openPopupProfile.open();
+  popupProfile.open();
   // Вызываем функцию resetValidation для очищения инпутов
   profFormValidator.resetValidation();
   //Получаем объект с данными
@@ -172,45 +160,45 @@ editBtnProfile.addEventListener('click', () => {
 
 // Создаем карточки ч/з popup
 
-const openPopupAddImage = new PopupWithForm({
+const popupAddImage = new PopupWithForm({
   selectorPopup: popupAddImageSelector,
   handleFormSubmit: (data) => {
-    openPopupAddImage.renderLoading(true, false);
+    popupAddImage.renderLoading(true, 'Сохранение...');
     api.addCard(data)
       .then((data) => {
         const newImage = createCard(data, photoTemplateSelector);
         сardList.addItem(newImage, false);
-        openPopupAddImage.close();
+        popupAddImage.close();
       })
       .catch((error) => console.log(error))
       .finally(() => {
-        openPopupAddImage.renderLoading(false, false);
+        popupAddImage.renderLoading(false);
       });
   }
 });
 
-// Popup с автаркой
+// Popup с автаркой openPopupAvatar
 
-const openPopupAvatar = new PopupWithForm({
+const popupAvatar = new PopupWithForm({
   selectorPopup: popupAddAvatarSelector,
   handleFormSubmit: (values) => {
     const { link } = values;
-    openPopupAvatar.renderLoading(true, false);
+    popupAvatar.renderLoading(true, 'Сохранение...');
     api.redactAvatar(link)
       .then((res) => {
-        profileUserAvatarInfo.setUserInfo({ avatar: res.avatar });
-        openPopupAvatar.close();
+        profileUserInfo.setUserInfo({ avatar: res.avatar });
+        popupAvatar.close();
       })
       .catch((error) => console.log(error))
       .finally(() => {
-        openPopupAvatar.renderLoading(false, false);
+        popupAvatar.renderLoading(false);
       });
   }
 });
 
 // Открываем popup для изменения аватарки
 openPupopAvatarBtn.addEventListener('click', () => {
-  openPopupAvatar.open();
+  popupAvatar.open();
   // Вызываем на объекте avatarFormValidator функцию resetValidation для очищения инпутов
   avatarFormValidator.resetValidation();
 });
@@ -221,7 +209,7 @@ const popupDelete = new PopupDelete(popupDeleteSelector);
 
 // Открываем popup для добавления картинок
 addBtnProfile.addEventListener('click', function () {
-  openPopupAddImage.open();
+  popupAddImage.open();
   // Вызываем на объекте imageFormValidator функцию resetValidation для очищения инпутов
   imageFormValidator.resetValidation();
 
@@ -229,10 +217,10 @@ addBtnProfile.addEventListener('click', function () {
 
 //  Создаем слушателей
 
-openPopupWithImage.setEventListeners();
-openPopupProfile.setEventListeners();
-openPopupAddImage.setEventListeners();
-openPopupAvatar.setEventListeners();
+imagePopup.setEventListeners();
+popupProfile.setEventListeners();
+popupAddImage.setEventListeners();
+popupAvatar.setEventListeners();
 popupDelete.setEventListeners();
 
 

@@ -1,7 +1,6 @@
 export class Card {
   constructor({ name, link, likes, owner, _id }, myProfileId, handleCardClick, handleDeleteCard, handleSetLike, hendleRemoveLike, selector) {
     this._name = name;
-    //this._imageAlt = name;
     this._link = link;
     this._id = _id;
     this._selector = selector;
@@ -26,7 +25,7 @@ export class Card {
     this._likeButton = this._element.querySelector('.photo__like');
 
     // Делаем проверку, при обновлении страницы, если были лайки, то закрасить сердечко
-    if (this._foundLikes()) {
+    if (this._findLikes()) {
       this._likeButton.classList.add('photo__like_active');
     }
     else {
@@ -43,7 +42,7 @@ export class Card {
     this._element.querySelector('.photo__text').textContent = this._name;
 
     // Вызываем метод для одображения суммы лайков при обновлении старницы
-    this._kitLikes();
+    this._setLikes();
     this._hendleDeleteCardActive();
 
 
@@ -58,7 +57,6 @@ export class Card {
 
   // Реализация удаления карточек
   deleteCard() {
-    //this._trashButton.closest('.photo').remove();
     this._element.remove();
   }
 
@@ -67,7 +65,7 @@ export class Card {
     // Реализация клика лайка постановка и удаление
     this._likeButton.addEventListener('click', () => {
       //this._addLike();
-      if (this._foundLikes()) {
+      if (this._findLikes()) {
         this._hendleRemoveLike(this);
       }
       else {
@@ -92,41 +90,36 @@ export class Card {
   _hendleDeleteCardActive() {
     if (this._userId === this._myProfileId) {
       this._trashButton.classList.add('photo__trash_type_active');
-      // debugger;
     }
 
   }
 
   // Реализация отображения лайков
-  _kitLikes() {
+  _setLikes() {
     this._sumLikes.textContent = this._likes.length;
   }
 
   // Установка инфориации об лайках
-  kitInfoLikes(data) {
+  setInfoLikes(data) {
     this._likes = data.likes;
-    this._correctionLikes();
+    this._updateLikes();
   }
 
   // Обновляем просмотр лайков
-  _correctionLikes(data) {
-    if (!this._foundLikes()) {
-      this._kitLikes();
+  _updateLikes(data) {
+    if (!this._findLikes()) {
+      this._setLikes();
       this._likeButton.classList.remove('photo__like_active');
     }
     else {
-      this._kitLikes();
+      this._setLikes();
       this._likeButton.classList.add('photo__like_active');
     }
   }
 
   // Находим аналогичные лайки
-  _foundLikes() {
-    // const ikessss= this._likes.find(function(like) {
-    //   return like.data_id === this._myId;
-    // })
+  _findLikes() {
     return this._likes.find((like) => like._id === this._myProfileId);
-
   }
 
   // Получаем id

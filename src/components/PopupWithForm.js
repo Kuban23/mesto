@@ -5,11 +5,11 @@ export default class PopupWithForm extends Popup {
     super(selectorPopup);
     this._form = this._popup.querySelector('.popup__form');
     this._handleFormSubmit = handleFormSubmit;
+    this._inputList = this._popup.querySelectorAll('.popup__input');
   }
 
   // Метод собирает данные всех полей формы
   _getInputValues() {
-    this._inputList = this._popup.querySelectorAll('.popup__input');
     this._formInputValue = {};
     this._inputList.forEach((input) => {
       this._formInputValue[input.name] = input.value;
@@ -34,12 +34,9 @@ export default class PopupWithForm extends Popup {
   }
 
   // При редактировании профиля уведомляем пользователя о процессе загрузки
-  renderLoading(Loading, order = true) {
-    if (Loading) {
-      this._popupSubmitButton.textContent = 'Сохранение...';
-    }
-    else if (order) {
-      this._popupSubmitButton.textContent = 'Загрузка...';
+  renderLoading(isLoading, text) {
+    if (isLoading) {
+      this._popupSubmitButton.textContent = text;
     }
     else {
       this._popupSubmitButton.textContent = 'Сохранить';

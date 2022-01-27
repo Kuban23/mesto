@@ -72,7 +72,6 @@ export class FormValidator {
 
   // Функция вкл/откл кнопки 'Отправить'
   _toggleButtonState() {
-    // const buttonElement = this._element.querySelector(this._submitButtonSelector);
     // Проверяем валидность формы
     const isFormValid = this._element.checkValidity();
     // Если форма невалидна, то присваиваем свойству disabled кнопки значение true
@@ -89,13 +88,13 @@ export class FormValidator {
 
   // Функция очистки инпутов формы в случае если форму не заполнили до конца.
   resetValidation() {
+    this._toggleButtonState();
+    this._element.reset();
     this._inputList.forEach((inputElement) => {
       this._hideInputError(inputElement);
-      this._toggleButtonState();
-      this._element.reset();
     });
-
   }
 
 };
+
 

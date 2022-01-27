@@ -3,7 +3,6 @@ export default class UserInfo {
   constructor({ nameSelector, professionSelector, linkSelector, avatarSelector }) {
     this._name = document.querySelector(nameSelector);
     this._profession = document.querySelector(professionSelector);
-    //this._link = document.querySelector(linkSelector);
     this._avatar = document.querySelector(avatarSelector);
   }
 
